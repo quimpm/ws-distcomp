@@ -28,4 +28,6 @@ urlpatterns = [
     path("exam/", include("exam.urls")),
     path("docs/", include_docs_urls(title=API_TITLE, description=API_DESCRIPTION)),
     path("schema/", schema_view),
+    path("auth/", include("dj_rest_auth.urls")),
+    path("auth/registration/", include("dj_rest_auth.registration.urls")),
 ]
