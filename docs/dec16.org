@@ -12,8 +12,9 @@ class User <<persistent>> {
 }
 
 note top of Exam : Date is on epoch format.
+note bottom of Exam : id is given by django
 class Exam <<persistent>> {
-    + pk: Int
+    + id: Int
     + description: Text
     + date: Date
     + location: String
@@ -31,11 +32,9 @@ Exam "0.." -- "1..*" User
 (Exam, User) . Grades
 #+end_src
 
-#+RESULTS:
-[[file:img/message_passing.png]]
-
 #+attr_org: :width 300
 #+RESULTS:
+[[file:img/message_passing.png]]
 
 * Coses a preguntar
 + Sobre time i location (Exam)
@@ -75,6 +74,7 @@ Exam "0.." -- "1..*" User
 + S'ha de poder guardar les notes desde el WS.
 
 ~exam=exam_id~
+#+NAME: Methods table. Preceeded by api at ngix level
 | Method | URL           | What                               |
 |--------+---------------+------------------------------------|
 | get    | exam          | List d'exams                       |
@@ -86,3 +86,24 @@ Exam "0.." -- "1..*" User
 |--------+---------------+------------------------------------|
 | post   | grades/{exam} | Penjar nota d'un examen.           |
 | get    | grades/{user} | list totes les notes d'un est.     |
+
+* PROJ My Exam
+** TODO Docker
+*** TODO Env file
+** TODO Nginx
+** TODO Front-end
+** TODO API
+*** DONE Install REST-Django
+*** TODO Exam
++ [X] Module
++ [ ] Model
+  - [ ] Tests Model
++ [ ] View
+  - [ ] First part of table in
+  - [ ] Tests View
+*** TODO Grades
++ [ ] Module
++ [ ] Model
+  - [ ] Tests Model
++ [ ] View
+  - [ ] Tests View
