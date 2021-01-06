@@ -14,3 +14,10 @@ class ExamViewSet(viewsets.ModelViewSet):
     queryset = Exam.objects.all()
     serializer_class = ExamSerializer
     permission_classes = [IsOwner]
+
+    def get_queryset(self):
+        queryset = Exam.objects.all()
+        description = self.request.query_params.get('description', None)
+        if description is not None:
+            queryset = queryset.filter(description__icontains = description)
+        return queryset
