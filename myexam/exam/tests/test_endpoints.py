@@ -43,8 +43,7 @@ class ApiEndpointsTestExam(TestCase):
         client = APIClient()
         client.login(username='quimpm', password='testingquimpm123')
         response = create_exam(client)
-        print(response.status_code)
-        assert response.status_code == 200
+        assert response.status_code == 201
 
     def test_loged_read_exam(self):
         client = APIClient()
@@ -56,6 +55,7 @@ class ApiEndpointsTestExam(TestCase):
         client = APIClient()
         client.login(username='quimpm', password='testingquimpm123')
         response = update_exam(client)
+        print("TEST LOGED UPDATE EXAM", response.status_code)
         assert response.status_code == 200
 
 
@@ -63,6 +63,7 @@ class ApiEndpointsTestExam(TestCase):
         client = APIClient()
         client.login(username='quimpm', password='testingquimpm123')
         response = partial_update_exam(client)
+        print(response.status_code)
         assert response.status_code == 200
 
 
@@ -70,7 +71,7 @@ class ApiEndpointsTestExam(TestCase):
         client = APIClient()
         client.login(username='quimpm', password='testingquimpm123')
         response = delete_exam(client)
-        assert response.status_code == 200
+        assert response.status_code == 204
 
     def test_no_loged_list_exams(self):
         client = APIClient()
@@ -117,12 +118,20 @@ def create_exam(client):
     time = datetime.datetime(
         2020, 12, 14, 0, 0, tzinfo=datetime.timezone(datetime.timedelta(0))
     )
+    owner_1 = User.objects.create(
+        username="kimpaema",
+        password="testingquimpm123",
+        email="quimpm@gmail.com",
+        first_name="Quim",
+        last_name="També",
+    )
     data = {
         'description' : 'My heart falls right out of my skiiin',
-        'date' : "Hole lo caracole",
-        'location' : 'Carrer Sant Ruf 33, Lleida 25005'
+        'date' : time,
+        'location' : 'Carrer Sant Ruf 33, Lleida 25005',
+        'owner': owner_1.pk
     }
-    return client.post('/exam/', data, format='json')
+    return client.post('/exam/', data)
 
 
 def read_exam(client):
@@ -133,19 +142,27 @@ def update_exam(client):
     time = datetime.datetime(
         2020, 12, 14, 0, 0, tzinfo=datetime.timezone(datetime.timedelta(0))
     )
+    owner = User.objects.create(
+        username="ticcansatdusernamesja",
+        password="testingquimpm123",
+        email="quimpm@gmail.com",
+        first_name="Quim",
+        last_name="També",
+    )
     data = {
         'description' : 'My heart falls right out of my skiiin',
         'date' : time,
-        'location' : 'Carrer Sant Ruf 33, Lleida 25005'
+        'location' : 'Carrer Sant Ruf 33, Lleida 25005',
+        'owner': owner.pk
     }
-    return client.put('/exam/1', data, format='json')
+    return client.put('/exam/1', data)
 
 
 def partial_update_exam(client):
     data = {
         'description' : 'Hola',
     }
-    return client.patch('/exam/1/', data, format='json')
+    return client.patch('/exam/1/', data)
 
 def delete_exam(client):
     return client.delete('/exam/1/')    
