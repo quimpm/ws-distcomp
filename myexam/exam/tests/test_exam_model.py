@@ -8,6 +8,7 @@ from ..models import Exam
 
 # Create your tests here.
 class ExamTestCase(TestCase):
+    
     @classmethod
     def setUpTestData(cls):
         """
@@ -35,3 +36,7 @@ class ExamTestCase(TestCase):
         )
         self.assertEqual(time, exam.date)
         self.assertEqual("St. X number Y", exam.location)
+
+    def test_description_query(self):
+        exam = list(Exam.objects.filter(description = "Description"))[0]
+        self.assertEqual("Description", exam.description)
