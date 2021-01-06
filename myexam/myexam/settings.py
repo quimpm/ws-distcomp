@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "rest_framework",
     # Local
     "exam.apps.ExamConfig",
+    "grades.apps.GradesConfig",
 ]
 
 MIDDLEWARE = [
