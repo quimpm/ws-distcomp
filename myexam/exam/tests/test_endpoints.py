@@ -7,7 +7,6 @@ import datetime
 
 class ApiEndpointsTestExam(TestCase):
 
-
     @classmethod
     def setUpTestData(cls):
         """
@@ -28,76 +27,82 @@ class ApiEndpointsTestExam(TestCase):
         )
 
 
-    def loged_list_exams(self):
+    def test_loged_list_exams(self):
         client = APIClient()
         client.login(username='quimpm', password='testingquimpm123')
         response = list_exams(client)
         assert response.status_code == 200
     
-    def loged_list_exams_by_description(self):
+    def test_loged_list_exams_by_description(self):
         client = APIClient()
         client.login(username='quimpm', password='testingquimpm123')
         response = list_exams_by_description(client)
         assert response.status_code == 200
 
-    def loged_create_exam(self):
+    def test_loged_create_exam(self):
         client = APIClient()
         client.login(username='quimpm', password='testingquimpm123')
         response = create_exam(client)
+        print(response.status_code)
         assert response.status_code == 200
 
-    def loged_read_exam(self):
+    def test_loged_read_exam(self):
         client = APIClient()
         client.login(username='quimpm', password='testingquimpm123')
         response = read_exam(client)
         assert response.status_code == 200
 
-    def loged_update_exam(self):
+    def test_loged_update_exam(self):
         client = APIClient()
         client.login(username='quimpm', password='testingquimpm123')
         response = update_exam(client)
         assert response.status_code == 200
 
 
-    def loged_partial_update_exam(self):
+    def test_loged_partial_update_exam(self):
         client = APIClient()
         client.login(username='quimpm', password='testingquimpm123')
-        result = partial_update_exam(client)
+        response = partial_update_exam(client)
         assert response.status_code == 200
 
 
-    def loged_delete_exam(self):
+    def test_loged_delete_exam(self):
         client = APIClient()
         client.login(username='quimpm', password='testingquimpm123')
         response = delete_exam(client)
         assert response.status_code == 200
 
-    def no_loged_list_exams(self):
+    def test_no_loged_list_exams(self):
         client = APIClient()
         response = list_exams(client)
         assert response.status_code == 401
 
-    def no_loged_create_exam(self):
+    def test_no_loged_list_exams_by_description(self):
+        client = APIClient()
+        response = list_exams_by_description(client)
+        assert response.status_code == 401
+
+    def test_no_loged_create_exam(self):
         client = APIClient()
         response = create_exam(client)
         assert response.status_code == 401
 
-    def no_loged_read_exam(self):
+    def test_no_loged_read_exam(self):
         client = APIClient()
         response = read_exam(client)
         assert response.status_code == 401
 
-    def no_loged_update_exam(self):
+    def test_no_loged_update_exam(self):
         client = APIClient()
         response = update_exam(client)
         assert response.status_code == 401
 
-    def no_loged_partial_update_exam(self):
+    def test_no_loged_partial_update_exam(self):
         client = APIClient()
         response = partial_update_exam(client)
         assert response.status_code == 401
 
-    def no_loged_delete_exam(self):
+    def test_no_loged_delete_exam(self):
         client = APIClient()
         response = delete_exam(client)
         assert response.status_code == 401
@@ -114,10 +119,10 @@ def create_exam(client):
     )
     data = {
         'description' : 'My heart falls right out of my skiiin',
-        'date' : time,
+        'date' : "Hole lo caracole",
         'location' : 'Carrer Sant Ruf 33, Lleida 25005'
     }
-    return client.post('/exam/', data)
+    return client.post('/exam/', data, format='json')
 
 
 def read_exam(client):
@@ -133,14 +138,14 @@ def update_exam(client):
         'date' : time,
         'location' : 'Carrer Sant Ruf 33, Lleida 25005'
     }
-    return client.put('/exam/1', data)
+    return client.put('/exam/1', data, format='json')
 
 
 def partial_update_exam(client):
     data = {
         'description' : 'Hola',
     }
-    return client.patch('/exam/1/', data)
+    return client.patch('/exam/1/', data, format='json')
 
 def delete_exam(client):
     return client.delete('/exam/1/')    
