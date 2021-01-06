@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from ..models import Grade
 from exam.models import Exam
 import datetime
+import json
 
 
 class ApiEndpointsTestGrades(TestCase):
@@ -33,13 +34,12 @@ class ApiEndpointsTestGrades(TestCase):
     def test_list_grades(self):
         client = APIClient()
         response = list_grades(client)
-        print(response.content)
         assert response.status_code == 200
     
     def test_create_grade(self):
         client = APIClient()
         response = create_grade(client)
-        assert response.status_code == 200
+        assert response.status_code == 201
     
     def test_read_grade(self):
         client = APIClient()
@@ -51,10 +51,15 @@ class ApiEndpointsTestGrades(TestCase):
         response = update_grade(client)
         assert response.status_code == 200
 
+    def test_patch_grade(self):
+        client = APIClient()
+        response = patch_grade(client)
+        assert response.status_code == 200
+
     def test_delete_grade(self):
         client = APIClient()
         response = delete_grade(client)
-        assert response.status_code == 200
+        assert response.status_code == 204
 
 
 def list_grades(client):
@@ -76,20 +81,40 @@ def create_grade(client):
     )
     data = {
         "grade": 0.1,
-        "exam": exam_1,
-        "user": random_user
+        "exam": exam_1.pk,
+        "user": random_user.pk
     }
-    print(client.get('/exam/').content)
     return client.post('/grades/',data)
 
 def read_grade(client):
     return client.get('/grades/1/')
 
 def update_grade(client):
+    other_user = User.objects.create(
+        username="differentuser",
+        password="complexpass",
+        email="differentuser@gmail.com",
+        first_name="Userdif",
+        last_name="Erentus"
+    )
+    time = datetime.datetime(
+        2020, 12, 13, 0, 0, tzinfo=datetime.timezone(datetime.timedelta(0))
+    )
+    different_exam = Exam.objects.create(
+            description="This time the exam is in Naples", date=time, location="Naples", owner=other_user
+    )
     data = {
-        "grade": 1.5
+        "grade": 1.5,
+        "exam": different_exam.pk,
+        "user": other_user.pk
     }
     return client.put('/grades/1/', data)
+
+def patch_grade(client):
+    data = {
+        "grade": 9
+    }
+    return client.patch('/grades/1/', data)
 
 def delete_grade(client):
     return client.delete('/grades/1/')
