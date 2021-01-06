@@ -26,7 +26,13 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DJANGO_DEBUG") == "True"
 
-ALLOWED_HOSTS: typing.List[str] = os.getenv("DJANGO_ALLOWED_HOSTS").split()
+# Defensive aproach at allowed hosts. If not, terminal explotes.
+# Welcome to Monads nigthmares boys.
+ALLOWED_HOSTS: typing.List[str] = (
+    os.getenv("DJANGO_ALLOWED_HOSTS").split()
+    if os.getenv("DJANGO_ALLOWED_HOSTS") is not None
+    else []
+)
 
 
 # Application definition
@@ -145,8 +151,11 @@ SITE_ID = 1
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
-EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS") == "True"
-EMAIL_HOST = os.getenv("EMAIL_HOST")
-EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
-EMAIL_PORT = int(os.getenv("EMAIL_PORT"))
+ACCOUNT_EMAIL_VERIFICATION = os.getenv("EMAIL_OPTION")
+
+if os.getenv("EMAIL_OPTION"):
+    EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS") == "True"
+    EMAIL_HOST = os.getenv("EMAIL_HOST")
+    EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+    EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+    EMAIL_PORT = int(os.getenv("EMAIL_PORT"))
