@@ -15,7 +15,6 @@ class ExamViewSet(viewsets.ModelViewSet):
     serializer_class = ExamSerializer
     permission_classes = [IsOwner]
 
-
 class ExamSearchList(generics.ListAPIView):
     serializer_class = ExamSerializer
 
