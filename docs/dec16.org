@@ -46,6 +46,10 @@ Exam "0.." -- "1..*" User
   el Professor ha de dir els alumnes que es poden connectar? O mentre sigui
   un alumne es pot connectar al examen?
 
+* Notes de desenvolupament
++ Canviar delete dels tests, només s'ha de poder esborrar
+  si no té grades.
+
 * Arquitectura
 ** Bàsics
 + Donar un identificador a l'exam
