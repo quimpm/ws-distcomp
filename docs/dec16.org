@@ -47,7 +47,7 @@ Exam "0.." -- "1..*" User
   un alumne es pot connectar al examen?
 
 * Notes de desenvolupament
-+ Canviar delete dels tests, només s'ha de poder esborrar
++ Canviar delete dels tests d'exam, només s'ha de poder esborrar
   si no té grades.
 
 * Arquitectura
