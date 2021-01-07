@@ -98,10 +98,6 @@ class ApiCustomEndpointsTestGrades(APITestCase):
         self.assertEqual(response.status_code,200)
 
 
-        
-        
-
-
 def list_grades(client):
     return client.get("/grades/")
 
