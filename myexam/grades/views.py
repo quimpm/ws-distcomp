@@ -15,10 +15,9 @@ class GradeViewSet(viewsets.ModelViewSet):
     queryset = Grade.objects.all()
     serializer_class = GradeSerializer
 
-    @action(detail=True,  methods=['get'])
+    @action(detail=True, methods=["get"])
     def user_grades(self, request, pk=None):
         queryset = Grade.objects.all()
         queryset = queryset.filter(user=pk)
         serializer = GradeSerializer(queryset, many=True)
         return Response(status=200, data=serializer.data)
-        
