@@ -28,11 +28,8 @@ class ApiEndpointsTestGrades(APITestCase):
         Grade.objects.create(exam=exam_1, user=user_1, grade=5.0)
 
     def test_get_user(self):
-        response = self.client.get('/grades/1/user_grades/')
-        print("RESPONSE", response.status_code)
-        print("CONTENT", response.content)
+        response = self.client.get("/grades/1/user_grades/")
         self.assertEqual(response.status_code, 200)
-
 
     def test_list_grades(self):
         response = list_grades(self.client)
@@ -57,6 +54,7 @@ class ApiEndpointsTestGrades(APITestCase):
     def test_delete_grade(self):
         response = delete_grade(self.client)
         self.assertEqual(204, response.status_code)
+
 
 class ApiCustomEndpointsTestGrades(APITestCase):
     @classmethod
@@ -91,11 +89,11 @@ class ApiCustomEndpointsTestGrades(APITestCase):
         Grade.objects.create(exam=exam_1, user=user_1, grade=5.0)
         Grade.objects.create(exam=exam_2, user=user_1, grade=9.0)
         Grade.objects.create(exam=exam_3, user=user_2, grade=1.0)
-    
+
     def test_get_correct_grades_by_user_1(self):
-        response = self.client.get('/grades/1/get_user/')
+        response = self.client.get("/grades/1/get_user/")
         # TODO: M'estic pixant i em criden a dinar, ja ho faré quan pugui
-        self.assertEqual(response.status_code,200)
+        self.assertEqual(response.status_code, 200)
 
 
 def list_grades(client):
