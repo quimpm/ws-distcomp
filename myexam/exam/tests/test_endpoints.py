@@ -6,7 +6,7 @@ from django.utils import timezone
 import datetime
 
 
-class ApiEndpointsTestExam(APITestCase):
+class ApiLoggedTestExam(APITestCase):
     @classmethod
     def setUpTestData(cls):
         """
@@ -30,6 +30,9 @@ class ApiEndpointsTestExam(APITestCase):
         )
         cls.token = Token.objects.create(user=cls.user)
 
+    def setUp(self):
+        self.login()
+
     def login(self):
         self.client.credentials(HTTP_AUTHORIZATION="Token " + self.token.key)
 
@@ -37,75 +40,86 @@ class ApiEndpointsTestExam(APITestCase):
         # self.client.credentials()
         self.client.force_authenticate(user=None)
 
-    def test_logged_list_exams(self):
-        self.login()
+    def test_list_exams(self):
         response = list_exams(self.client)
         self.assertEqual(200, response.status_code)
-        self.logout()
 
-    def test_logged_list_exams_by_description(self):
-        self.login()
+    def test_list_exams_by_description(self):
         response = list_exams_by_description(self.client)
         self.assertEqual(200, response.status_code)
-        self.logout()
 
-    def test_logged_create_exam(self):
-        self.login()
+    def test_create_exam(self):
         response = create_exam(self.client)
         self.assertEqual(201, response.status_code)
-        self.logout()
 
-    def test_logged_read_exam(self):
-        self.login()
+    def test_read_exam(self):
         response = read_exam(self.client)
         self.assertEqual(200, response.status_code)
-        self.logout()
 
-    def test_logged_update_exam(self):
-        self.login()
+    def test_update_exam(self):
         response = update_exam(self.client)
         self.assertEqual(200, response.status_code)
-        self.logout()
 
-    def test_logged_partial_update_exam(self):
-        self.login()
+    def test_partial_update_exam(self):
         response = partial_update_exam(self.client)
         self.assertEqual(200, response.status_code)
-        self.logout()
 
-    def test_logged_delete_exam(self):
-        self.login()
+    def test_delete_exam(self):
         response = delete_exam(self.client)
         self.assertEqual(204, response.status_code)
-        self.logout()
 
-    def test_no_logged_list_exams(self):
+
+class ApiNotLoggedTestExam(APITestCase):
+    @classmethod
+    def setUpTestData(cls):
+        """
+        Sets Up the Exam
+        """
+        time = datetime.datetime(
+            2020, 12, 14, 0, 0, tzinfo=datetime.timezone(datetime.timedelta(0))
+        )
+        cls.user = User.objects.create(
+            username="quimpm",
+            password="testingquimpm123",
+            email="quimpm@gmail.com",
+            first_name="Quim",
+            last_name="També",
+        )
+        Exam.objects.create(
+            description="Description",
+            date=time,
+            location="St. X number Y",
+            owner=cls.user,
+        )
+        cls.token = Token.objects.create(user=cls.user)
+
+    def test_list_exams(self):
         response = list_exams(self.client)
         self.assertEqual(200, response.status_code)
 
-    def test_no_logged_list_exams_by_description(self):
+    def test_list_exams_by_description(self):
         response = list_exams_by_description(self.client)
         self.assertEqual(200, response.status_code)
 
-    def test_no_logged_create_exam(self):
+    def test_create_exam(self):
         response = create_exam(self.client)
         self.assertEqual(403, response.status_code)
 
-    def test_no_logged_read_exam(self):
+    def test_read_exam(self):
         response = read_exam(self.client)
         self.assertEqual(200, response.status_code)
 
-    def test_no_logged_update_exam(self):
+    def test_update_exam(self):
         response = update_exam(self.client)
-        self.assertEqual(403, response.status_code)
+        self.assertEqual(401, response.status_code)
 
-    def test_no_logged_partial_update_exam(self):
+    def test_partial_update_exam(self):
         response = partial_update_exam(self.client)
-        self.assertEqual(403, response.status_code)
+        self.assertEqual(401, response.status_code)
 
-    def test_no_logged_delete_exam(self):
+    def test_delete_exam(self):
         response = delete_exam(self.client)
-        self.assertEqual(403, response.status_code)
+        self.assertEqual(401, response.status_code)
 
 
 def list_exams(client):

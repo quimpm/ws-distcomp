@@ -16,6 +16,6 @@ class IsOwner(permissions.BasePermission):
         """
         return (
             request.method in permissions.SAFE_METHODS
-            or (request.user and request.method == "POST")
-            or (request.user and obj.owner == request.user)
+            or (request.auth is not None and request.method == "POST")
+            or (request.auth is not None and obj.owner == request.user)
         )

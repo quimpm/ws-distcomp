@@ -22,6 +22,11 @@ class IsOwnerTestCase(TestCase):
         class Request:
             method: str
             user: typing.Optional[str] = None
+            test: bool = True
+
+            @property
+            def auth(self):
+                return self.user
 
         @dataclass
         class Obj:
@@ -29,7 +34,8 @@ class IsOwnerTestCase(TestCase):
 
         isOwner = IsOwner()
         self.assertTrue(isOwner.has_object_permission(Request("GET"), None, Obj()))
-        self.assertFalse(isOwner.has_object_permission(Request("POST"), None, Obj()))
+        somevariable = isOwner.has_object_permission(Request("POST"), None, Obj())
+        self.assertFalse(somevariable)
         self.assertTrue(
             isOwner.has_object_permission(Request("POST", "sergi"), None, Obj())
         )

@@ -1,5 +1,4 @@
-from rest_framework.test import APIClient
-from django.test import TestCase
+from rest_framework.test import APITestCase
 from django.contrib.auth.models import User
 from ..models import Grade
 from exam.models import Exam
@@ -7,7 +6,7 @@ import datetime
 import json
 
 
-class ApiEndpointsTestGrades(TestCase):
+class ApiEndpointsTestGrades(APITestCase):
     @classmethod
     def setUpTestData(cls):
         """
@@ -29,33 +28,27 @@ class ApiEndpointsTestGrades(TestCase):
         Grade.objects.create(exam=exam_1, user=user_1, grade=5.0)
 
     def test_list_grades(self):
-        client = APIClient()
-        response = list_grades(client)
+        response = list_grades(self.client)
         self.assertEqual(200, response.status_code)
 
     def test_create_grade(self):
-        client = APIClient()
-        response = create_grade(client)
+        response = create_grade(self.client)
         self.assertEqual(201, response.status_code)
 
     def test_read_grade(self):
-        client = APIClient()
-        response = read_grade(client)
+        response = read_grade(self.client)
         self.assertEqual(200, response.status_code)
 
     def test_update_grade(self):
-        client = APIClient()
-        response = update_grade(client)
+        response = update_grade(self.client)
         self.assertEqual(200, response.status_code)
 
     def test_patch_grade(self):
-        client = APIClient()
-        response = patch_grade(client)
+        response = patch_grade(self.client)
         self.assertEqual(200, response.status_code)
 
     def test_delete_grade(self):
-        client = APIClient()
-        response = delete_grade(client)
+        response = delete_grade(self.client)
         self.assertEqual(204, response.status_code)
 
 
