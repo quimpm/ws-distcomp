@@ -151,7 +151,6 @@ def update_exam(client):
         first_name="Quim",
         last_name="També",
     )
-    breakpoint()
     data = {
         "description": "My heart falls right out of my skiiin",
         "date": time,
