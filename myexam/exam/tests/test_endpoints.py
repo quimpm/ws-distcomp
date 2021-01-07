@@ -86,24 +86,20 @@ class ApiDeleteExamWithGrade(APITestCase):
             owner=self.user,
         )
         self.token = Token.objects.create(user=self.user)
-        Grade.objects.create(
-            exam=exam,
-            user=self.user,
-            grade=9.0
-        )
+        Grade.objects.create(exam=exam, user=self.user, grade=9.0)
         self.login()
-
 
     def login(self):
         self.client.credentials(HTTP_AUTHORIZATION="Token " + self.token.key)
 
     def test_delete_not_grade(self):
         response = self.client.delete("/exam/1/")
-        self.assertEqual(204,response.status_code)
+        self.assertEqual(403, response.status_code)
 
     def test_delete_with_grade(self):
         response = self.client.delete("/exam/1/")
-        self.assertEqual(204,response.status_code)
+        self.assertEqual(403, response.status_code)
+
 
 class ApiNotLoggedTestExam(APITestCase):
     def setUp(self):

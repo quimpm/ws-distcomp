@@ -17,4 +17,9 @@ class Exam(models.Model):
     )
 
     def __str__(self):
-        return self.description
+        return f"""Exam(pk={self.pk},
+        description={self.description},
+        date={self.date},
+        location={self.location},
+        owner={self.owner},
+        """

@@ -17,4 +17,6 @@ class Grade(models.Model):
     grade = models.FloatField()
 
     def __str__(self):
-        return self.grade
+        return f"""Grade(pk={self.pk}, exam={self.exam},
+                         user={self.user}
+                         grade={self.grade}"""
