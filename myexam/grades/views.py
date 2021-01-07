@@ -5,6 +5,7 @@ from .models import Grade
 from .serializers import GradeSerializer
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from .permissions import IsOwnerOfExamGrade
 
 # Create your views here.
 class GradeViewSet(viewsets.ModelViewSet):
@@ -14,6 +15,7 @@ class GradeViewSet(viewsets.ModelViewSet):
 
     queryset = Grade.objects.all()
     serializer_class = GradeSerializer
+    permission_classes = [IsOwnerOfExamGrade]
 
     @action(detail=True, methods=["get"])
     def user_grades(self, request, pk=None):
