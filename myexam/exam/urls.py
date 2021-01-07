@@ -5,4 +5,4 @@ from .views import ExamViewSet, ExamSearchList
 router = SimpleRouter()
 router.register("", ExamViewSet)
 
-urlpatterns = router.urls + [path("", ExamSearchList)]
+urlpatterns = router.urls + [path("search", ExamSearchList.as_view())]
