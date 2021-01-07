@@ -91,10 +91,29 @@ class ApiCustomEndpointsTestGrades(APITestCase):
         Grade.objects.create(exam=exam_3, user=user_2, grade=1.0)
 
     def test_get_correct_grades_by_user_1(self):
-        response = self.client.get("/grades/1/get_user/")
-        # TODO: M'estic pixant i em criden a dinar, ja ho faré quan pugui
+        response = self.client.get("/grades/1/user_grades/")
+        self.assertEqual(len(response.data), 2)
+        
+        grade_1 = response.data[0]
+        grade_2 = response.data[1]
+
+        self.assertEqual(grade_1["user"], 1)
+        self.assertEqual(grade_2["user"], 1)
+        self.assertEqual(grade_1["exam"], 1)
+        self.assertEqual(grade_2["exam"], 2)
+        
         self.assertEqual(response.status_code, 200)
 
+    def test_get_correct_grades_by_user_2(self):
+        response = self.client.get("/grades/2/user_grades/")
+        self.assertEqual(len(response.data), 1)
+        
+        grade_1 = response.data[0]
+
+        self.assertEqual(grade_1["user"], 2)
+        self.assertEqual(grade_1["exam"], 3)
+        
+        self.assertEqual(response.status_code, 200)
 
 def list_grades(client):
     return client.get("/grades/")
