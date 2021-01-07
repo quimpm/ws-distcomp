@@ -69,6 +69,41 @@ class ApiLoggedTestExam(APITestCase):
         self.assertEqual(204, response.status_code)
 
 
+class ApiDeleteExamWithGrade(APITestCase):
+    @classmethod
+    def setUpTestData(cls):
+        time = datetime.datetime(
+            2020, 12, 14, 0, 0, tzinfo=datetime.timezone(datetime.timedelta(0))
+        )
+        cls.user = User.objects.create(
+            username="quimpm",
+            password="testingquimpm123",
+            email="quimpm@gmail.com",
+            first_name="Quim",
+            last_name="També",
+        )
+        Exam.objects.create(
+            description="Description",
+            date=time,
+            location="St. X number Y",
+            owner=cls.user,
+        )
+        cls.token = Token.objects.create(user=cls.user)
+    def setUp(self):
+        self.login()
+
+    def login(self):
+        self.client.credentials(HTTP_AUTHORIZATION="Token " + self.token.key)
+        
+
+    def test_delete_not_grade(self):
+        exams = self.client.get("/exam/")
+        print("EXAM:", exams.content)
+
+        breakpoint()
+        response = self.client.delete("/exam/1/")
+        self.assertEqual(200,response.status_code)
+
 class ApiNotLoggedTestExam(APITestCase):
     @classmethod
     def setUpTestData(cls):

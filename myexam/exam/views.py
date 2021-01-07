@@ -19,7 +19,7 @@ class ExamViewSet(viewsets.ModelViewSet):
 
     def destroy(self, request, *args, **kwargs):
         exam = self.get_object().pk
-        queryset  = list(Grade.objects.filter(exam=pk))
+        queryset  = list(Grade.objects.filter(exam=exam))
         if queryset == []:
             self.perform_destroy()
             return Response(status=204)
