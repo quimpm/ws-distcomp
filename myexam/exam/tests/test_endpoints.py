@@ -103,7 +103,7 @@ class ApiNotLoggedTestExam(APITestCase):
 
     def test_create_exam(self):
         response = create_exam(self.client)
-        self.assertEqual(403, response.status_code)
+        self.assertEqual(401, response.status_code)
 
     def test_read_exam(self):
         response = read_exam(self.client)
@@ -134,18 +134,10 @@ def create_exam(client):
     time = datetime.datetime(
         2020, 12, 14, 0, 0, tzinfo=datetime.timezone(datetime.timedelta(0))
     )
-    owner_1 = User.objects.create(
-        username="kimpaema",
-        password="testingquimpm123",
-        email="quimpm@gmail.com",
-        first_name="Quim",
-        last_name="També",
-    )
     data = {
         "description": "My heart falls right out of my skiiin",
         "date": time,
         "location": "Carrer Sant Ruf 33, Lleida 25005",
-        "owner": owner_1.pk,
     }
     return client.post("/exam/", data)
 
@@ -158,18 +150,10 @@ def update_exam(client):
     time = datetime.datetime(
         2020, 12, 14, 0, 0, tzinfo=datetime.timezone(datetime.timedelta(0))
     )
-    owner = User.objects.create(
-        username="ticcansatdusernamesja",
-        password="testingquimpm123",
-        email="quimpm@gmail.com",
-        first_name="Quim",
-        last_name="També",
-    )
     data = {
         "description": "My heart falls right out of my skiiin",
         "date": time,
         "location": "Carrer Sant Ruf 33, Lleida 25005",
-        "owner": owner.pk,
     }
     return client.put("/exam/1/", data)
 

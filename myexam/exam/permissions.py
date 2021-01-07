@@ -7,6 +7,11 @@ class IsOwner(permissions.BasePermission):
     Assumes the model instance has an `owner` attribute.
     """
 
+    def has_permission(self, request, view):
+        return request.method in permissions.SAFE_METHODS or (
+            request.auth is not None and request.method == "POST"
+        )
+
     def has_object_permission(self, request, view, obj):
         """
         Read permissions are allowed to any request,
