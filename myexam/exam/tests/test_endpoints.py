@@ -2,20 +2,20 @@ from rest_framework.test import APITestCase
 from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import User
 from ..models import Exam
+from grades.models import Grade
 from django.utils import timezone
 import datetime
 
 
 class ApiLoggedTestExam(APITestCase):
-    @classmethod
-    def setUpTestData(cls):
+    def setUp(self):
         """
         Sets Up the Exam
         """
         time = datetime.datetime(
             2020, 12, 14, 0, 0, tzinfo=datetime.timezone(datetime.timedelta(0))
         )
-        cls.user = User.objects.create(
+        self.user = User.objects.create(
             username="quimpm",
             password="testingquimpm123",
             email="quimpm@gmail.com",
@@ -26,11 +26,9 @@ class ApiLoggedTestExam(APITestCase):
             description="Description",
             date=time,
             location="St. X number Y",
-            owner=cls.user,
+            owner=self.user,
         )
-        cls.token = Token.objects.create(user=cls.user)
-
-    def setUp(self):
+        self.token = Token.objects.create(user=self.user)
         self.login()
 
     def login(self):
@@ -69,16 +67,53 @@ class ApiLoggedTestExam(APITestCase):
         self.assertEqual(204, response.status_code)
 
 
+class ApiDeleteExamWithGrade(APITestCase):
+    def setUp(self):
+        time = datetime.datetime(
+            2020, 12, 14, 0, 0, tzinfo=datetime.timezone(datetime.timedelta(0))
+        )
+        self.user = User.objects.create(
+            username="quimpm",
+            password="testingquimpm123",
+            email="quimpm@gmail.com",
+            first_name="Quim",
+            last_name="També",
+        )
+        exam = Exam.objects.create(
+            description="Description",
+            date=time,
+            location="St. X number Y",
+            owner=self.user,
+        )
+        self.token = Token.objects.create(user=self.user)
+        Grade.objects.create(
+            exam=exam,
+            user=self.user,
+            grade=9.0
+        )
+        self.login()
+
+
+    def login(self):
+        self.client.credentials(HTTP_AUTHORIZATION="Token " + self.token.key)
+
+    def test_delete_not_grade(self):
+        response = self.client.delete("/exam/1/")
+        self.assertEqual(204,response.status_code)
+
+    def test_delete_with_grade(self):
+        response = self.client.delete("/exam/1/")
+        self.assertEqual(204,response.status_code)
+
 class ApiNotLoggedTestExam(APITestCase):
-    @classmethod
-    def setUpTestData(cls):
+    def setUp(self):
         """
         Sets Up the Exam
         """
         time = datetime.datetime(
             2020, 12, 14, 0, 0, tzinfo=datetime.timezone(datetime.timedelta(0))
         )
-        cls.user = User.objects.create(
+        self.user = User.objects.create(
             username="quimpm",
             password="testingquimpm123",
             email="quimpm@gmail.com",
@@ -89,9 +124,9 @@ class ApiNotLoggedTestExam(APITestCase):
             description="Description",
             date=time,
             location="St. X number Y",
-            owner=cls.user,
+            owner=self.user,
         )
-        cls.token = Token.objects.create(user=cls.user)
+        self.token = Token.objects.create(user=self.user)
 
     def test_list_exams(self):
         response = list_exams(self.client)

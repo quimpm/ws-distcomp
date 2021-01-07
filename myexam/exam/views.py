@@ -19,12 +19,11 @@ class ExamViewSet(viewsets.ModelViewSet):
 
     def destroy(self, request, *args, **kwargs):
         exam = self.get_object().pk
-        queryset  = list(Grade.objects.filter(exam=pk))
-        if queryset == []:
-            self.perform_destroy()
-            return Response(status=204)
-        else:
-            return Response(status=403) # TODO És forbidden?
+        queryset  = Grade.objects.filter(exam=exam)
+        if queryset:
+            return super().destroy(request, *args, **kwargs)
+
+        return Response(status=403, data="Exam has grades.") # TODO És forbidden?
 
 
 class ExamSearchList(generics.ListAPIView):
