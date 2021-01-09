@@ -1,6 +1,7 @@
-from rest_framework import permissions
-from exam.models import Exam
 import typing
+
+from exam.models import Exam
+from rest_framework import permissions
 
 
 class IsOwnerOfExamGrade(permissions.BasePermission):
