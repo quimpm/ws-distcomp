@@ -9,7 +9,7 @@ import json
 
 class ApiNoLogedTestGrades(APITestCase):
     @classmethod
-    def setUpTestData(cls):
+    def setUp(self):
         """
         Sets Up the Grade
         """
@@ -30,13 +30,13 @@ class ApiNoLogedTestGrades(APITestCase):
             first_name="Macarroni",
             last_name="Diabola",
         )
-        exam_1 = Exam.objects.create(
+        self.exam_1 = Exam.objects.create(
             description="Description", date=time, location="London", owner=user_1
         )
         exam_2 = Exam.objects.create(
             description="Description", date=time, location="London", owner=user_2
         )
-        Grade.objects.create(exam=exam_1, user=user_1, grade=5.0)
+        Grade.objects.create(exam=self.exam_1, user=user_1, grade=5.0)
         Grade.objects.create(exam=exam_2, user=user_2, grade=4.99)
 
     def test_get_user(self):
@@ -48,7 +48,7 @@ class ApiNoLogedTestGrades(APITestCase):
         self.assertEqual(200, response.status_code)
 
     def test_create_grade(self):
-        response = create_grade(self.client)
+        response = create_grade(self.client, self.exam_1)
         self.assertEqual(401, response.status_code)
 
     def test_read_grade(self):
@@ -70,7 +70,7 @@ class ApiNoLogedTestGrades(APITestCase):
 
 class ApiCustomEndpointsTestGrades(APITestCase):
     @classmethod
-    def setUpTestData(cls):
+    def setUp(self):
         time = datetime.datetime(
             2020, 12, 13, 0, 0, tzinfo=datetime.timezone(datetime.timedelta(0))
         )
@@ -89,7 +89,7 @@ class ApiCustomEndpointsTestGrades(APITestCase):
             last_name="TWOOOOOO",
         )
 
-        exam_1 = Exam.objects.create(
+        self.exam_1 = Exam.objects.create(
             description="Exam one", date=time, location="London", owner=user_1
         )
         exam_2 = Exam.objects.create(
@@ -98,14 +98,14 @@ class ApiCustomEndpointsTestGrades(APITestCase):
         exam_3 = Exam.objects.create(
             description="Exam three", date=time, location="Asturias", owner=user_2
         )
-        Grade.objects.create(exam=exam_1, user=user_1, grade=5.0)
+        Grade.objects.create(exam=self.exam_1, user=user_1, grade=5.0)
         Grade.objects.create(exam=exam_2, user=user_1, grade=9.0)
         Grade.objects.create(exam=exam_3, user=user_2, grade=1.0)
 
     def test_get_correct_grades_by_user_1(self):
         response = self.client.get("/grades/1/user_grades/")
         self.assertEqual(len(response.data), 2)
-        
+
         grade_1 = response.data[0]
         grade_2 = response.data[1]
 
@@ -113,22 +113,22 @@ class ApiCustomEndpointsTestGrades(APITestCase):
         self.assertEqual(grade_2["user"], 1)
         self.assertEqual(grade_1["exam"], 1)
         self.assertEqual(grade_2["exam"], 2)
-        
+
         self.assertEqual(response.status_code, 200)
 
     def test_get_correct_grades_by_user_2(self):
         response = self.client.get("/grades/2/user_grades/")
         self.assertEqual(len(response.data), 1)
-        
+
         grade_1 = response.data[0]
 
         self.assertEqual(grade_1["user"], 2)
         self.assertEqual(grade_1["exam"], 3)
-        
+
         self.assertEqual(response.status_code, 200)
 
-class ApiLogedTestGrades(APITestCase): 
 
+class ApiLoggedTestGrades(APITestCase):
     def setUp(self):
         """
         Sets Up the Exam
@@ -150,7 +150,7 @@ class ApiLogedTestGrades(APITestCase):
             first_name="TWOTWO",
             last_name="TWOOOOOO",
         )
-        exam_1 = Exam.objects.create(
+        self.exam_1 = Exam.objects.create(
             description="Exam one", date=time, location="London", owner=user_1
         )
         exam_2 = Exam.objects.create(
@@ -159,7 +159,7 @@ class ApiLogedTestGrades(APITestCase):
         exam_3 = Exam.objects.create(
             description="Exam three", date=time, location="Asturias", owner=user_2
         )
-        Grade.objects.create(exam=exam_1, user=user_1, grade=5.0)
+        Grade.objects.create(exam=self.exam_1, user=user_1, grade=5.0)
         Grade.objects.create(exam=exam_2, user=user_1, grade=9.0)
         Grade.objects.create(exam=exam_3, user=user_2, grade=1.0)
         self.token = Token.objects.create(user=user_1)
@@ -181,9 +181,9 @@ class ApiLogedTestGrades(APITestCase):
         self.assertEqual(200, response.status_code)
 
     def test_create_grade(self):
-        response = create_grade(self.client)
+        response = create_grade(self.client, self.exam_1)
         self.assertEqual(201, response.status_code)
-    
+
     def test_create_grade_no_owner(self):
         random_user = User.objects.create(
             username="notateacher",
@@ -229,7 +229,7 @@ class ApiLogedTestGrades(APITestCase):
         )
         grade = Grade.objects.create(exam=different_exam, user=other_user, grade=6.0)
         data = {"grade": 1.5, "exam": different_exam.pk, "user": other_user.pk}
-        response = self.client.put("/grades/"+str(grade.pk)+"/", data)
+        response = self.client.put("/grades/" + str(grade.pk) + "/", data)
         self.assertEqual(403, response.status_code)
 
     def test_patch_grade(self):
@@ -255,13 +255,13 @@ class ApiLogedTestGrades(APITestCase):
         )
         grade = Grade.objects.create(exam=different_exam, user=other_user, grade=6.0)
         data = {"grade": 1.5}
-        response = self.client.patch("/grades/"+str(grade.pk)+"/", data)
+        response = self.client.patch("/grades/" + str(grade.pk) + "/", data)
         self.assertEqual(403, response.status_code)
 
     def test_delete_grade(self):
         response = delete_grade(self.client)
         self.assertEqual(204, response.status_code)
-    
+
     def test_delete_grade_no_owner(self):
         other_user = User.objects.create(
             username="differentuser",
@@ -281,30 +281,26 @@ class ApiLogedTestGrades(APITestCase):
         )
         grade = Grade.objects.create(exam=different_exam, user=other_user, grade=6.0)
         data = {"grade": 1.5}
-        response = self.client.delete("/grades/"+str(grade.pk)+"/", data)
+        response = self.client.delete("/grades/" + str(grade.pk) + "/", data)
         self.assertEqual(403, response.status_code)
-
 
 
 def list_grades(client):
     return client.get("/grades/")
 
 
-def create_grade(client):
+def create_grade(client, exam):
     random_user = User.objects.create(
-        username="notateacher",
+        username="differentuser",
         password="complexpass",
-        email="useruser@gmail.com",
-        first_name="Userson",
-        last_name="VonUser",
+        email="differentuser@gmail.com",
+        first_name="Userdif",
+        last_name="Erentus",
     )
     time = datetime.datetime(
         2020, 12, 13, 0, 0, tzinfo=datetime.timezone(datetime.timedelta(0))
     )
-    exam_1 = Exam.objects.create(
-        description="Description", date=time, location="London", owner=random_user
-    )
-    data = {"grade": 0.1, "exam": exam_1.pk, "user": random_user.pk}
+    data = {"grade": 0.1, "exam": exam.pk, "user": random_user.pk}
     return client.post("/grades/", data)
 
 
