@@ -90,24 +90,3 @@ Exam "0.." -- "1..*" User
 |--------+---------------+------------------------------------|
 | post   | grades/{exam} | Penjar nota d'un examen.           |
 | get    | grades/{user} | list totes les notes d'un est.     |
-
-* PROJ My Exam
-** TODO Docker
-*** TODO Env file
-** TODO Nginx
-** TODO Front-end
-** TODO API
-*** DONE Install REST-Django
-*** TODO Exam
-+ [X] Module
-+ [ ] Model
-  - [ ] Tests Model
-+ [ ] View
-  - [ ] First part of table in
-  - [ ] Tests View
-*** TODO Grades
-+ [ ] Module
-+ [ ] Model
-  - [ ] Tests Model
-+ [ ] View
-  - [ ] Tests View
