@@ -27,6 +27,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("exam/", include("exam.urls")),
     path("grades/", include("grades.urls")),
+    path("user/", include("user.urls")),
     path("docs/", include_docs_urls(title=API_TITLE, description=API_DESCRIPTION)),
     path("schema/", schema_view),
     path("auth/", include("dj_rest_auth.urls")),
