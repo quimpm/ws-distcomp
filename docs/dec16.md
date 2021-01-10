@@ -1,11 +1,10 @@
-# Table of Contents
+# Introduction
 
-1.  [Coses a preguntar](#org5dfa4a0)
-2.  [Notes de desenvolupament](#org25031b2)
-3.  [Arquitectura](#orge9c9b57)
-    1.  [Bàsics](#org8e43138)
-    2.  [Advanced](#org92ca6d4)
-    3.  [Integració](#orge985253)
+In this document is it specified all the endpoints and which responses do they
+return, as well as a defense of which technologies we have used.
+
+Additionally, it can be found a table containing the rest api developed, as
+well as a class diagram of the model of data used in the API.
 
 ![img](img/message_passing.png)
 
@@ -286,10 +285,30 @@ is properly deleted from the database.
 - Django rest framework: this framework is a powerfull and easy-to-use tool
   for building web REST API's, it includes mechanisms for searialization and
   authentication, which we found necessary.
-- SQLite: it is the Django default database (a postgres database is also
-  configured using docker)
+- SQLite: it is the Django default database. A postgres database can be
+  configured as a replacement for scalability and deployment purposes, and
+  is it already specified in the environment, but was left as SQLite was
+  suffieciently for the requirements.
 - Docker: It facilitates the configuration and portabiltiy of the project.
-- Docker-compose: It facilitates even more the configuration
+- Docker-compose: It facilitates even more the configuration of a docker.
+
+### ViewSets and Generics
+
+Django is an opinionated framework. With this, it provides powerfull abstraction
+if you can manage to use them. Django REST Framework, based on it, _copies_ some
+of their abstractions and provides them for a RESTful API. For example, in Django
+we extend View classes and add them some information about which HTML
+template to use and which database model, and it will pass correcly the data.
+
+With the REST framework, we have a similar idea. We have the concept of generics,
+that provides a unique endpoint to an action, as retrieving an object from the
+database or listing a few of them. When they did this, they saw that most of their
+implementations used the same parameters: where to get the objects and how to serialize
+them. And for this reason they build what they called "ViewSets". ViewSets provide
+an abstraction to build all the CRUD operations of a model in the database. In conjuntion
+with the permissions class, they can provide a quick and robust way to deploy the API.
+Most of our endpoints are made with this ViewSets. Filtering Views were made as custom
+ListAPIViews with a custom get_queryset function.
 
 ### Decisions
 
@@ -297,10 +316,16 @@ is properly deleted from the database.
   once registered and logged are provided with a token that they will need
   to make specific api calls. There are custom permisions to prevent forbidden
   actions, like a student deleting an exam, or modifiying a grade.
-  We used django_rest_auth, which provides endpoints for registration, authentication,
+  We used dj-rest-auth, which provides endpoints for registration, authentication,
   password resset, retrieve and update user details, etc.
 
-- **Get user**: <!-- TODO: S'ha de comentar? -->
+  We also used django-all-auth, which provides a powerfull backend to registration.
+  It also provides with a plug-and-play of social authentication,
+  (i.e.: login with your Google account), and email verification. Although we
+  initially made an Email backend, we needed to provide in the environment
+  either a usable email or an email provider. We made a special parameter
+  so they are not needed, as we thought that this will cause some trouble
+  when correcting the project, rather than beiing a feature.
 
 ## RMI modifications
 
