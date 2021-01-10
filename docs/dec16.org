@@ -79,14 +79,34 @@ Exam "0.." -- "1..*" User
 
 ~exam=exam_id~
 #+NAME: Methods table. Preceeded by api at ngix level
-| Method | URL           | What                               |
-|--------+---------------+------------------------------------|
-| get    | exam          | List d'exams                       |
-| get    | exam/{exam}   | Detall de Exam (tot)               |
-| get    | exam?s={text} | Buscar descripció parcial.         |
-| post   | exam          | Crea exam. pk no s'ha de donar.    |
-| put    | exam/{exam}   | Modificar camps d'Exam (tots)      |
-| delete | exam/{exam}   | Deletes if professor and no grades |
-|--------+---------------+------------------------------------|
-| post   | grades/{exam} | Penjar nota d'un examen.           |
-| get    | grades/{user} | list totes les notes d'un est.     |
+|--------+---------------------------------+-----------------------------------------------------------------|
+| Method | URL                             | What                                                            |
+|--------+---------------------------------+-----------------------------------------------------------------|
+| get    | exam/                           | List d'exams                                                    |
+| get    | exam/{exam}/                    | Detall de Exam (tot)                                            |
+| get    | exam/search?description={text}/ | Buscar descripció parcial.                                      |
+| post   | exam/                           | Crea exam. pk no s'ha de donar.                                 |
+| put    | exam/{exam}/                    | Modificar camps d'Exam (tots)                                   |
+| patch  | exam/{exam}/                    | Partial update.                                                 |
+| delete | exam/{exam}/                    | Deletes if professor and no grades                              |
+|--------+---------------------------------+-----------------------------------------------------------------|
+| post   | grades/                         | Penjar nota d'un examen.                                        |
+| get    | grades/user/{user}/             | List totes les notes d'un estudiant.                            |
+| get    | grades/                         | List all grades.                                                |
+| get    | grades/{grade_id}               | Detail a grade.                                                 |
+| put    | grades/{grade_id}               | Updates a grade.                                                |
+| patch  | grades/{grade_id}               | Partially updates a grade.                                      |
+| delete | grades/{grade_id}               | Deletes a grade.                                                |
+|--------+---------------------------------+-----------------------------------------------------------------|
+| post   | auth/login/                     | Logins                                                          |
+| get    | auth/logout/                    | Logouts                                                         |
+| post   | auth/logout/                    | Logout                                                          |
+| post   | auth/password/change/           | Password change.                                                |
+| post   | auth/password/reset/            | Password reset by email confirmation. Needs Email configuration |
+| post   | auth/password/reset/confirm/    | Password Confirmation                                           |
+| post   | auth/registration/              | Register a new user.                                            |
+| post   | auth/registration/verify-email  | Verifies email. Needs Email configuration                       |
+| get    | auth/user/                      | Reads User. Needs authentication                                |
+| put    | auth/user/                      | Updates User                                                    |
+| patch  | auth/user/                      | Partial update.                                                 |
+|--------+---------------------------------+-----------------------------------------------------------------|
