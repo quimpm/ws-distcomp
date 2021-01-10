@@ -23,7 +23,8 @@ class ExamViewSet(viewsets.ModelViewSet):
         exam = self.get_object().pk
         queryset = Grade.objects.filter(exam=exam)
         if not queryset:
-            return super().destroy(request, *args, **kwargs)
+            super().destroy(request, *args, **kwargs)
+            return Response(status=200, data="Exam deleted successfully.")
         return Response(status=403, data="Exam has grades.")  # TODO És forbidden?
 
 
