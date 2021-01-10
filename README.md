@@ -91,9 +91,9 @@ all methods that test must begin with test, so manage.py does properly discover 
 - [Django](https://www.djangoproject.com/) - The web framework used.
 - [Docker](https://www.docker.com/) - Container management.
 - [SQLite](https://sqlite.org/index.html) - Open Source Database.
-- [Django Rest Framework](https://www.django-rest-framework.org/)
-- [Dj-rest-auth](https://github.com/jazzband/dj-rest-auth)
-- [Django All auth](https://django-allauth.readthedocs.io/en/latest/installation.html)
+- [Django Rest Framework](https://www.django-rest-framework.org/) - Makes Django a REST framework
+- [Dj-rest-auth](https://github.com/jazzband/dj-rest-auth) - Gets a secure API for authentication
+- [Django All auth](https://django-allauth.readthedocs.io/en/latest/installation.html) - Secure Registration Implementation. Has many social adaptors.
 
 ## Authors
 
