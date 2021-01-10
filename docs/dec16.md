@@ -11,6 +11,7 @@
 
 ![img](img/message_passing.png)
 
+<<<<<<< HEAD
 ## Exam
 Exam is the class that holds all the Exam information. It stores the description, the date and the location of the exam.
 
@@ -21,8 +22,13 @@ User is the class that stores the information of the user that is making use of 
 This class it's the one that stores grades of exams made by users.
 
 <table id="org3665e2a" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+=======
+<table id="org5be7804" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+>>>>>>> ed35900d9e3fab9fa22b1b9037315ee5c1ce3e10
 
 <colgroup>
+<col  class="org-left" />
+
 <col  class="org-left" />
 
 <col  class="org-left" />
@@ -34,6 +40,7 @@ This class it's the one that stores grades of exams made by users.
 <th scope="col" class="org-left">Method</th>
 <th scope="col" class="org-left">URL</th>
 <th scope="col" class="org-left">What</th>
+<th scope="col" class="org-left">Status code</th>
 </tr>
 </thead>
 
@@ -42,42 +49,49 @@ This class it's the one that stores grades of exams made by users.
 <td class="org-left">get</td>
 <td class="org-left">exam/</td>
 <td class="org-left">List d&rsquo;exams</td>
+<td class="org-left">200</td>
 </tr>
 
 <tr>
 <td class="org-left">get</td>
 <td class="org-left">exam/{exam}/</td>
 <td class="org-left">Detall de Exam (tot)</td>
+<td class="org-left">200, 404</td>
 </tr>
 
 <tr>
 <td class="org-left">get</td>
 <td class="org-left">exam/search?description={text}/</td>
 <td class="org-left">Buscar descripció parcial.</td>
+<td class="org-left">200</td>
 </tr>
 
 <tr>
 <td class="org-left">post</td>
 <td class="org-left">exam/</td>
 <td class="org-left">Crea exam. pk no s&rsquo;ha de donar.</td>
+<td class="org-left">201, 403, 401</td>
 </tr>
 
 <tr>
 <td class="org-left">put</td>
 <td class="org-left">exam/{exam}/</td>
 <td class="org-left">Modificar camps d&rsquo;Exam (tots)</td>
+<td class="org-left">200, 403, 401</td>
 </tr>
 
 <tr>
 <td class="org-left">patch</td>
 <td class="org-left">exam/{exam}/</td>
 <td class="org-left">Partial update.</td>
+<td class="org-left">200, 403, 401</td>
 </tr>
 
 <tr>
 <td class="org-left">delete</td>
 <td class="org-left">exam/{exam}/</td>
 <td class="org-left">Deletes if professor and no grades</td>
+<td class="org-left">204, 403, 401</td>
 </tr>
 </tbody>
 
@@ -86,42 +100,49 @@ This class it's the one that stores grades of exams made by users.
 <td class="org-left">post</td>
 <td class="org-left">grades/</td>
 <td class="org-left">Penjar nota d&rsquo;un examen.</td>
+<td class="org-left">201, 403, 401</td>
 </tr>
 
 <tr>
 <td class="org-left">get</td>
 <td class="org-left">grades/{user}/user/</td>
 <td class="org-left">List totes les notes d&rsquo;un estudiant.</td>
+<td class="org-left">200</td>
 </tr>
 
 <tr>
 <td class="org-left">get</td>
 <td class="org-left">grades/</td>
 <td class="org-left">List all grades.</td>
+<td class="org-left">200</td>
 </tr>
 
 <tr>
 <td class="org-left">get</td>
 <td class="org-left">grades/{grade<sub>id</sub>}</td>
 <td class="org-left">Detail a grade.</td>
+<td class="org-left">200, 404</td>
 </tr>
 
 <tr>
 <td class="org-left">put</td>
 <td class="org-left">grades/{grade<sub>id</sub>}</td>
 <td class="org-left">Updates a grade.</td>
+<td class="org-left">200, 403, 401</td>
 </tr>
 
 <tr>
 <td class="org-left">patch</td>
 <td class="org-left">grades/{grade<sub>id</sub>}</td>
 <td class="org-left">Partially updates a grade.</td>
+<td class="org-left">200, 403, 401</td>
 </tr>
 
 <tr>
 <td class="org-left">delete</td>
 <td class="org-left">grades/{grade<sub>id</sub>}</td>
 <td class="org-left">Deletes a grade.</td>
+<td class="org-left">204, 403, 401</td>
 </tr>
 </tbody>
 
@@ -130,66 +151,86 @@ This class it's the one that stores grades of exams made by users.
 <td class="org-left">post</td>
 <td class="org-left">auth/login/</td>
 <td class="org-left">Logins</td>
+<td class="org-left">201, 403, 401</td>
 </tr>
 
 <tr>
 <td class="org-left">get</td>
 <td class="org-left">auth/logout/</td>
 <td class="org-left">Logouts</td>
+<td class="org-left">200</td>
 </tr>
 
 <tr>
 <td class="org-left">post</td>
 <td class="org-left">auth/logout/</td>
 <td class="org-left">Logout</td>
+<td class="org-left">201, 403, 401</td>
 </tr>
 
 <tr>
 <td class="org-left">post</td>
 <td class="org-left">auth/password/change/</td>
 <td class="org-left">Password change.</td>
+<td class="org-left">201, 403, 401</td>
 </tr>
 
 <tr>
 <td class="org-left">post</td>
 <td class="org-left">auth/password/reset/</td>
 <td class="org-left">Password reset by email confirmation. Needs Email configuration</td>
+<td class="org-left">201, 403, 401</td>
 </tr>
 
 <tr>
 <td class="org-left">post</td>
 <td class="org-left">auth/password/reset/confirm/</td>
 <td class="org-left">Password Confirmation</td>
+<td class="org-left">201, 403, 401</td>
 </tr>
 
 <tr>
 <td class="org-left">post</td>
 <td class="org-left">auth/registration/</td>
 <td class="org-left">Register a new user.</td>
+<td class="org-left">201, 403, 401</td>
 </tr>
 
 <tr>
 <td class="org-left">post</td>
 <td class="org-left">auth/registration/verify-email</td>
 <td class="org-left">Verifies email. Needs Email configuration</td>
+<td class="org-left">201, 403, 401</td>
 </tr>
 
 <tr>
 <td class="org-left">get</td>
 <td class="org-left">auth/user/</td>
 <td class="org-left">Reads User. Needs authentication</td>
+<td class="org-left">200</td>
 </tr>
 
 <tr>
 <td class="org-left">put</td>
 <td class="org-left">auth/user/</td>
 <td class="org-left">Updates User</td>
+<td class="org-left">200, 403, 401</td>
 </tr>
 
 <tr>
 <td class="org-left">patch</td>
 <td class="org-left">auth/user/</td>
 <td class="org-left">Partial update.</td>
+<td class="org-left">200, 403, 401</td>
+</tr>
+</tbody>
+
+<tbody>
+<tr>
+<td class="org-left">get</td>
+<td class="org-left">user/{user}/</td>
+<td class="org-left">Gets user with pk.</td>
+<td class="org-left">200, 404</td>
 </tr>
 </tbody>
 </table>
