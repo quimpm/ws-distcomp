@@ -1,10 +1,15 @@
 # Activity 6: WS Project
 
 **Github:** [WS Project](https://github.com/quimpm/ws-distcomp), [RMI Project](https://github.com/sergisi/java-rmi/tree/integration)
+
 **Made by:** Sergi Simón Balcells, Ian Palacín Aliana, Joaquim Picó Mora
+
 **Date:** Dilluns 11/01/2020
+
 **Subject:** Distributed Computing
+
 **Professor:** Jordi Gervás Arruga
+
 **Universitat de Lleida**
 
 # UML
