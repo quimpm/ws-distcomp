@@ -20,6 +20,8 @@ User is the class that stores the information of the user that is making use of 
 ## Grades
 This class it's the one that stores grades of exams made by users.
 
+# Endpoint Table
+
 <table id="org3665e2a" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 <colgroup>
