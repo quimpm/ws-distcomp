@@ -7,7 +7,18 @@
     2.  [Advanced](#org92ca6d4)
     3.  [Integració](#orge985253)
 
+# UML
+
 ![img](img/message_passing.png)
+
+## Exam
+Exam is the class that holds all the Exam information. It stores the description, the date and the location of the exam.
+
+## User
+User is the class that stores the information of the user that is making use of our system. It's the default implementation of the django User class.
+
+## Grades
+This class it's the one that stores grades of exams made by users.
 
 <table id="org3665e2a" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
