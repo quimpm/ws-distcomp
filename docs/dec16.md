@@ -11,7 +11,6 @@
 
 ![img](img/message_passing.png)
 
-<<<<<<< HEAD
 ## Exam
 Exam is the class that holds all the Exam information. It stores the description, the date and the location of the exam.
 
@@ -22,9 +21,6 @@ User is the class that stores the information of the user that is making use of 
 This class it's the one that stores grades of exams made by users.
 
 <table id="org3665e2a" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-=======
-<table id="org5be7804" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
->>>>>>> ed35900d9e3fab9fa22b1b9037315ee5c1ce3e10
 
 <colgroup>
 <col  class="org-left" />
