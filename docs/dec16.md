@@ -1,15 +1,15 @@
 # Table of Contents
 
-1.  [Coses a preguntar](#org30881c7)
-2.  [Notes de desenvolupament](#org04405c5)
-3.  [Arquitectura](#orgd3ce228)
-    1.  [Bàsics](#orgb1e9f54)
-    2.  [Advanced](#org1bc96ae)
-    3.  [Integració](#org452ae4d)
+1.  [Coses a preguntar](#org5dfa4a0)
+2.  [Notes de desenvolupament](#org25031b2)
+3.  [Arquitectura](#orge9c9b57)
+    1.  [Bàsics](#org8e43138)
+    2.  [Advanced](#org92ca6d4)
+    3.  [Integració](#orge985253)
 
 ![img](img/message_passing.png)
 
-<a id="org30881c7"></a>
+<a id="org5dfa4a0"></a>
 
 # Coses a preguntar
 
@@ -22,18 +22,18 @@
   el Professor ha de dir els alumnes que es poden connectar? O mentre sigui
   un alumne es pot connectar al examen?
 
-<a id="org04405c5"></a>
+<a id="org25031b2"></a>
 
 # Notes de desenvolupament
 
 - Canviar delete dels tests d&rsquo;exam, només s&rsquo;ha de poder esborrar
   si no té grades.
 
-<a id="orgd3ce228"></a>
+<a id="orge9c9b57"></a>
 
 # Arquitectura
 
-<a id="orgb1e9f54"></a>
+<a id="org8e43138"></a>
 
 ## Bàsics
 
@@ -47,7 +47,7 @@
 - s&rsquo;ha de poder descargar la informació de l&rsquo;examen per
   identificador o per llistant tots els examens
 
-<a id="org1bc96ae"></a>
+<a id="org92ca6d4"></a>
 
 ## Advanced
 
@@ -58,7 +58,7 @@
 - &#x2013; de la merda que utilitza
 - S&rsquo;ha de poder gestionar l&rsquo; accés de l&rsquo;estudiant per id. (?)
 
-<a id="org452ae4d"></a>
+<a id="orge985253"></a>
 
 ## Integració
 
@@ -70,7 +70,7 @@
 
 `exam=exam_id`
 
-<table id="org875eb5a" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table id="org3665e2a" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 <colgroup>
 <col  class="org-left" />
@@ -140,7 +140,7 @@
 
 <tr>
 <td class="org-left">get</td>
-<td class="org-left">grades/user/{user}/</td>
+<td class="org-left">grades/{user}/user/</td>
 <td class="org-left">List totes les notes d&rsquo;un estudiant.</td>
 </tr>
 

@@ -91,7 +91,7 @@ Exam "0.." -- "1..*" User
 | delete | exam/{exam}/                    | Deletes if professor and no grades                              |
 |--------+---------------------------------+-----------------------------------------------------------------|
 | post   | grades/                         | Penjar nota d'un examen.                                        |
-| get    | grades/user/{user}/             | List totes les notes d'un estudiant.                            |
+| get    | grades/{user}/user/             | List totes les notes d'un estudiant.                            |
 | get    | grades/                         | List all grades.                                                |
 | get    | grades/{grade_id}               | Detail a grade.                                                 |
 | put    | grades/{grade_id}               | Updates a grade.                                                |

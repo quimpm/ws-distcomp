@@ -1,4 +1,4 @@
-% Created 2021-01-10 Sun 16:50
+% Created 2021-01-10 Sun 16:54
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -34,7 +34,7 @@
 \end{center}
 
 \section{Coses a preguntar}
-\label{sec:orgb967974}
+\label{sec:org8ea9842}
 \begin{itemize}
 \item Sobre time i location (Exam)
 \item Datasource serveix per extraure el driver de connexió del servidor, i
@@ -47,16 +47,16 @@ un alumne es pot connectar al examen?
 \end{itemize}
 
 \section{Notes de desenvolupament}
-\label{sec:orgca8addf}
+\label{sec:org85187fa}
 \begin{itemize}
 \item Canviar delete dels tests d'exam, només s'ha de poder esborrar
 si no té grades.
 \end{itemize}
 
 \section{Arquitectura}
-\label{sec:org4ad13be}
+\label{sec:org976cde0}
 \subsection{Bàsics}
-\label{sec:orgffb52f9}
+\label{sec:orgfbed975}
 \begin{itemize}
 \item Donar un identificador a l'exam
 \item Guardar la descripció, la date/time i location
@@ -70,7 +70,7 @@ identificador o per llistant tots els examens
 \end{itemize}
 
 \subsection{Advanced}
-\label{sec:orga6cea7c}
+\label{sec:org8807a16}
 \begin{itemize}
 \item S'ha de poder posar notes a un examen.
 \item S'ha de poder descarregar les notes d'un estudiant.
@@ -81,7 +81,7 @@ examens / teus examens.
 \end{itemize}
 
 \subsection{Integració}
-\label{sec:orga80b96f}
+\label{sec:org63aa53c}
 \begin{itemize}
 \item RMI ha de crear l'examen al ws.
 \item Els estudiants han de validar l'id abans de començar
@@ -107,7 +107,7 @@ patch & exam/\{exam\}/ & Partial update.\\
 delete & exam/\{exam\}/ & Deletes if professor and no grades\\
 \hline
 post & grades/ & Penjar nota d'un examen.\\
-get & grades/user/\{user\}/ & List totes les notes d'un estudiant.\\
+get & grades/\{user\}/user/ & List totes les notes d'un estudiant.\\
 get & grades/ & List all grades.\\
 get & grades/\{grade\textsubscript{id}\} & Detail a grade.\\
 put & grades/\{grade\textsubscript{id}\} & Updates a grade.\\
