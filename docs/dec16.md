@@ -1,3 +1,17 @@
+# Activity 6: WS Project
+
+**Github:** [WS Project](https://github.com/quimpm/ws-distcomp), [RMI Project](https://github.com/sergisi/java-rmi/tree/integration)
+
+**Made by:** Sergi Simón Balcells, Ian Palacín Aliana, Joaquim Picó Mora
+
+**Date:** Dilluns 11/01/2020
+
+**Subject:** Distributed Computing
+
+**Professor:** Jordi Gervás Arruga
+
+**Universitat de Lleida**
+
 # Introduction
 
 In this document is it specified all the endpoints and which responses do they
@@ -6,9 +20,25 @@ return, as well as a defense of which technologies we have used.
 Additionally, it can be found a table containing the rest api developed, as
 well as a class diagram of the model of data used in the API.
 
+# UML
+
 ![img](img/message_passing.png)
 
-<table id="org5be7804" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+## Exam
+
+Exam is the class that holds all the Exam information. It stores the description, the date and the location of the exam.
+
+## User
+
+User is the class that stores the information of the user that is making use of our system. It's the default implementation of the django User class.
+
+## Grades
+
+This class it's the one that stores grades of exams made by users.
+
+# Endpoint Table
+
+<table id="org3665e2a" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 <colgroup>
 <col  class="org-left" />
@@ -273,6 +303,88 @@ is properly deleted from the database.
   ![img](img/get_exam_grade.png)
 
 # How To
+
+## Getting Started
+
+These instructions will get you a copy of the project up
+and running on your local machine for development and
+testing purposes. See deployment for notes on how to
+deploy the project on a live system.
+
+### Prerequisites
+
+You will need to have installed docker and docker-compose.
+To know if this is working properly use
+`docker run hello-world` and `docker-compose --version`.
+To get them installed properly at your OS,
+refer to the oficial pages of docker and use:
+
+```
+python3 -m pip install docker-compose
+```
+
+### Installing
+
+Copy '.env.example' to file named '.env'. Then change
+the variable `DJANGO_SECRET_KEY=[key]` to a value generated.
+For example, using [this site](https://miniwebtool.com/django-secret-key-generator/).
+
+So the contents of .env should be:
+
+```
+#Django configuration
+
+OPEN_PORT=8000
+DJANGO_PORT=8000
+
+DJANGO_SECRET_KEY=<your secret key goes here>
+DJANGO_DEBUG=1
+DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1] 0.0.0.0
+
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
+POSTGRES_HOST=db
+POSTGRES_PORT=5432
+POSTGRES_NAME=postgres
+
+DATABASE_URL="postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@$POSTGRES_HOST:$POSTGRES_PORT/$POSTGRES_NAME"
+
+EMAIL_OPTION=none
+EMAIL_USE_TLS=True
+EMAIL_HOST='smtp.gmail.com'
+EMAIL_HOST_USER='mail@gmail.com'
+EMAIL_HOST_PASSWORD='password1234'
+EMAIL_PORT=587
+
+```
+
+Then apply the changes to you database using:
+
+```
+docker-compose up -d
+docker-compose exec web python3 manage.py makemigrations
+docker-compose exec web python3 manage.py migrate
+docker-compose down
+```
+
+To create a super user, use:
+
+```
+docker-compose up -d
+docker-compose exec web python3 manage.py createsuperuser
+docker-compose down
+```
+
+Then use `docker-compose up -d` to get it running.
+Connect to `localhost:8000/admin` to see the admin login
+page, or `localhost:8000/docs` to see the docs.
+
+To stop it, use `docker-compose down`
+
+## Running the tests
+
+To execute all tests, use
+`docker-compose exec web python3 manage.py test`
 
 # Solution justification
 
