@@ -1,5 +1,7 @@
 # ws-distcomp
 
+This project builds an API for storing exams and grades.
+
 ## Getting Started
 
 These instructions will get you a copy of the project up
