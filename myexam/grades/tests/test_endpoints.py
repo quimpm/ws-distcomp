@@ -40,7 +40,7 @@ class ApiNoLogedTestGrades(APITestCase):
         Grade.objects.create(exam=exam_2, user=user_2, grade=4.99)
 
     def test_get_user(self):
-        response = self.client.get("/grades/1/user_grades/")
+        response = self.client.get("/grades/1/user/")
         self.assertEqual(response.status_code, 200)
 
     def test_list_grades(self):
@@ -103,7 +103,7 @@ class ApiCustomEndpointsTestGrades(APITestCase):
         Grade.objects.create(exam=exam_3, user=user_2, grade=1.0)
 
     def test_get_correct_grades_by_user_1(self):
-        response = self.client.get("/grades/1/user_grades/")
+        response = self.client.get("/grades/1/user/")
         self.assertEqual(len(response.data), 2)
 
         grade_1 = response.data[0]
@@ -117,7 +117,7 @@ class ApiCustomEndpointsTestGrades(APITestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_get_correct_grades_by_user_2(self):
-        response = self.client.get("/grades/2/user_grades/")
+        response = self.client.get("/grades/2/user/")
         self.assertEqual(len(response.data), 1)
 
         grade_1 = response.data[0]
@@ -173,7 +173,7 @@ class ApiLoggedTestGrades(APITestCase):
         self.client.force_authenticate(user=None)
 
     def test_get_user(self):
-        response = self.client.get("/grades/1/user_grades/")
+        response = self.client.get("/grades/1/user/")
         self.assertEqual(response.status_code, 200)
 
     def test_list_grades(self):

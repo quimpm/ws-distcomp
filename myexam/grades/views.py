@@ -18,7 +18,7 @@ class GradeViewSet(viewsets.ModelViewSet):
     permission_classes = [IsOwnerOfExamGrade]
 
     @action(detail=True, methods=["get"])
-    def user_grades(self, request, pk=None):
+    def user(self, request, pk=None):
         queryset = Grade.objects.all()
         queryset = queryset.filter(user=pk)
         serializer = GradeSerializer(queryset, many=True)
