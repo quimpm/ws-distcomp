@@ -1,11 +1,11 @@
-# Table of Contents
+# Activity 6: WS Project
 
-1.  [Coses a preguntar](#org5dfa4a0)
-2.  [Notes de desenvolupament](#org25031b2)
-3.  [Arquitectura](#orge9c9b57)
-    1.  [Bàsics](#org8e43138)
-    2.  [Advanced](#org92ca6d4)
-    3.  [Integració](#orge985253)
+**Github:** [WS Project](https://github.com/quimpm/ws-distcomp), [RMI Project](https://github.com/sergisi/java-rmi/tree/integration)
+**Made by:** Sergi Simón Balcells, Ian Palacín Aliana, Joaquim Picó Mora
+**Date:** Dilluns 11/01/2020
+**Subject:** Distributed Computing
+**Professor:** Jordi Gervás Arruga
+**Universitat de Lleida**
 
 # UML
 
