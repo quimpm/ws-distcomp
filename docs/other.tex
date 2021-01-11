@@ -122,6 +122,7 @@ delete & exam/\{exam\}/ & Deletes if user = professor and exam has no grades & 2
 \hline
 post & grades/ & Uploads a grade. & 201, 403, 401\\
 get & grades/\{user\}/user/ & List of all user grades. & 200\\
+get & grades/\{exam\}/exam/ & List of all exam grades. & 200\\
 get & grades/ & List all grades. & 200\\
 get & grades/\{grade-id\} & Detail a grade. & 200, 404\\
 put & grades/\{grade-id\} & Updates a grade. & 200, 403, 401\\
@@ -428,7 +429,7 @@ to mock and test the API calls because \texttt{OkHttp3} Request and Response
 object does not implement equals, and are final.
 
 \item[{Client flow changes}] Now the client has to be identified in order to
-enter the exam session, so the first step is to ask for a correct user
+enter the exam session, so the first step is to ask for a correct username
 and password. Once authenticated correctly the user is given 3
 options:
 
@@ -436,13 +437,13 @@ options:
 \item[{search <keywords> }] searches exams by its description and outputs
 the information of the matched exams.
 \item[{list}] lists and outputs all the exams and its information.
-\item[{choose <id-exam>}] chose the desired exam in order to connect to
+\item[{choose <id-exam>}] choose the desired exam in order to connect to
 its session. Once an exam is chosen, the flow works as before.
 \end{description}
 
 \item[{Server flow changes}] As happens with the client, the professor has
 to be identified in order to create an exam session, so the first step
-is to ask for a correct user and password. Once authenticated
+is to ask for a correct username and password. Once authenticated
 correctly it will be asked to introduce the following parametters in
 order to create the exam:
 
@@ -454,15 +455,16 @@ order to create the exam:
 
 \item[{location}] The location of an exam (string). We decided that the
 location will be the bind key of the remote object that references
-the exact exam session. Once the last parameter is filled, the
+the exact exam session. 
+\end{description}
+Once the last parameter is filled, the
 exam will be created in the web service, as well as the session in
 which the students can connect to perform the exam. When a
 professor finishes an exam, all the grades are uploaded to the web
 service.
 \end{description}
-\end{description}
 
-\subsection{Hours dedicated}
+\subsection{Time dedicated}
 \label{sec:org2cca440}
 It is difficult to say, but we estimate an approximation of 90 hours. We
 are a group of three students, and we worked in this project for 6 days,
