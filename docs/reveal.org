@@ -1,0 +1,287 @@
+#+TITLE: Activity 6 - WS
+#+author: Joaquim Picó Mora, Ian Palacín Aliana, Sergi Simón Balcells
+#+REVEAL_INIT_OPTIONS: slideNumber:"c/t"
+#+OPTIONS: toc:nil
+* Introduction
+In this document is it specified all the endpoints and which responses
+do they return, as well as a defense of which technologies we have
+used.
+
+Additionally, it can be found a table containing the REST API developed,
+as well as a class diagram of the database model used by the API.
+
+The integration can be found at
+[[https://github.com/sergisi/java-rmi/tree/integration][RMI Project]],
+at the branch =integration=. On the other hand, the Web Service can be
+found at [[https://github.com/quimpm/ws-distcomp][WS Project]].
+
+* UML
+#+attr_html: :height 550
+[[file:img/message_passing.png]]
+
+** Exam
+Exam is the class that holds all the Exam information. It stores the a
+description, a date and a location of an exam.
+
+** User
+User is the class that stores the information of a user that is making
+use of our system. It's the default implementation of the Django User
+class.
+
+** Grades
+This class it's the one that stores grades of exams made by users. It
+holds two foreign keys to the exam that belongs the grade, as well as
+the student.
+
+* Endpoint Table
+| Method | URL                              | What                                 | Status code   |
+|--------+----------------------------------+--------------------------------------+---------------|
+| get    | exam/                            | List d'exams                         | 200           |
+| get    | exam/{exam}/                     | Detall de Exam (tot)                 | 200, 404      |
+| get    | exam/search?description ={text}/ | Buscar descripció parcial.           | 200           |
+
+#+REVEAL: split
+| post   | exam/                            | Crea exam. pk no s'ha de donar.      | 201, 403, 401 |
+| put    | exam/{exam}/                     | Modificar camps d'Exam (tots)        | 200, 403, 401 |
+| patch  | exam/{exam}/                     | Partial update.                      | 200, 403, 401 |
+
+#+REVEAL: split
+| delete | exam/{exam}/                     | Deletes if professor and no grades   | 204, 403, 401 |
+| post   | grades/                          | Penjar nota d'un examen.             | 201, 403, 401 |
+| get    | grades/{user}/user/              | List totes les notes d'un estudiant. | 200           |
+
+#+REVEAL: split
+| get    | grades/                          | List all grades.                     | 200           |
+| get    | grades/{grade-id}                | Detail a grade.                      | 200, 404      |
+| put    | grades/{grade-id}                | Updates a grade.                     | 200, 403, 401 |
+
+#+REVEAL: split
+| patch  | grades/{grade-id}                | Partially updates a grade.           | 200, 403, 401 |
+| delete | grades/{grade-id}                | Deletes a grade.                     | 204, 403, 401 |
+
+#+REVEAL: split
+| post   | auth/login/                     | Logins                                                          | 201, 403, 401 |
+| get    | auth/logout/                    | Logouts                                                         | 200           |
+| post   | auth/logout/                    | Logout                                                          | 201, 403, 401 |
+
+#+REVEAL: split
+| post   | auth/password/change/           | Password change.                                                | 201, 403, 401 |
+| post   | auth/password/reset/            | Password reset by email confirmation. Needs Email configuration | 201, 403, 401 |
+| post   | auth/password/reset /confirm/   | Password Confirmation                                           | 201, 403, 401 |
+#+REVEAL: split
+| post   | auth/registration/              | Register a new user.                                            | 201, 403, 401 |
+| post   | auth/registration /verify-email | Verifies email. Needs Email configuration                       | 201, 403, 401 |
+| get    | auth/user/                      | Reads User. Needs authentication                                | 200           |
+#+REVEAL: split
+| put    | auth/user/                      | Updates User                                                    | 200, 403, 401 |
+| patch  | auth/user/                      | Partial update.                                                 | 200, 403, 401 |
+| get    | user/{user}/                    | Gets user with pk.                                              | 200, 404      |
+#+caption: Methods table (Part 2).
+
+* Screenshots
+The screenshots are for the most important cases, there are endpoints
+that has been omitted, like user password change.
+
+Note that due to a bug in the docs viewer, as deleting an object only
+returns a status code without any data, it does not correctly show that
+the status code is 204. Instead, only shows "undefined", even though it
+is properly deleted from the database.
+
+** Authentication
+#+caption: Register
+[[file:img/registration.png]]
+
+#+REVEAL: split
+#+caption: Login
+[[file:img/login.png]]
+
+** Exam
+   :PROPERTIES:
+   :CUSTOM_ID: exam
+   :END:
+
+#+attr_html: :height 500
+#+caption: List exams
+[[file:img/list_exams.png]]
+
+#+REVEAL: split
+#+caption: Create exam
+[[file:img/create_exam.png]]
+
+#+REVEAL: split
+#+caption: Read exam
+[[file:img/read_exam.png]]
+
+#+REVEAL: split
+#+caption: Update exam
+[[file:img/update_exam.png]]
+
+#+REVEAL: split
+#+caption: Patch exam
+[[file:img/partial_update_exam.png]]
+
+#+REVEAL: split
+#+caption: Delete exam
+[[file:img/delete_exam.png]]
+
+#+REVEAL: split
+#+attr_html: :height 550
+#+caption: Search exam
+[[file:img/search1.png]]
+
+** Grades
+#+caption: List grades
+[[file:img/list_grades.png]]
+
+#+REVEAL: split
+#+caption: Create grade
+[[file:img/create_grades.png]]
+
+#+REVEAL: split
+#+caption: Read grade
+[[file:img/get_grades_by_id.png]]
+
+#+REVEAL: split
+#+caption: Update grade
+[[file:img/update_grade.png]]
+
+#+REVEAL: split
+#+caption: Patch grade
+[[file:img/patch_grade.png]]
+
+#+REVEAL: split
+#+caption: Delete grade
+[[file:img/delete_grade.png]]
+
+#+REVEAL: split
+#+attr_html: :height 550
+#+caption: Search user grades
+[[file:img/get_user_grade.png]]
+
+#+REVEAL: split
+#+attr_html: :height 500
+#+caption: Search exam grades
+[[file:img/get_exam_grade.png]]
+
+* Solution justification
+** Web Service
+*** Technologies
+#+begin_comment
+- Django :: We have chosen this technology because our familiarity with
+  it and its ease to work with data models and ORM.
+
+- Django rest framework :: This framework is a powerful and easy-to-use
+  tool for building web REST API's, it includes mechanisms for
+  serialization and authentication, which we found necessary.
+
+- SQLite :: it is the Django default database. A PostgreSQL can be
+  configured as a replacement for scalability and deployment purposes.
+  It is already specified in the environment, but was left as SQLite was
+  sufficiently for the requirements.
+
+- Docker :: It facilitates the encapsulation and execution of the
+  project, as it is contained in a container.
+
+- Docker-compose :: Easier configuration for a docker.
+#+end_comment
+*** ViewSets and Generics
+#+begin_comment
+Django is an opinionated framework. With this, it provides powerful
+abstraction if you can manage to use them. Django REST Framework, based
+on it, /copies/ some of their abstractions and provides them for a
+RESTful API. For example, in Django we extend View classes and add them
+some information about which HTML template to use and which database
+model, and it will pass correctly the data.
+
+With the REST framework, we have a similar idea. We have the concept of
+generics, that provides a unique endpoint to an action, as retrieving an
+object from the database or listing a few of them. When they did this,
+they saw that most of their implementations used the same parameters:
+where to get the objects and how to serialize them. And for this reason
+they build what is called =ViewSets=. They provide an abstraction to
+build all the =CRUD= operations of a model in the database. In
+conjunction with the permissions class, they can provide a quick and
+robust way to deploy the API. Most of our endpoints are made with this
+=ViewSets=, the only ones that don't use them are Filtering Views as
+they were made with a custom =ListAPIViews= and a custom =get_queryset=
+function.
+
+A user detail is not provided by the =auth= API, but it was needed for
+the presentation, so we made a custom endpoint to read a specific User.
+#+end_comment
+*** Decisions: Authentication
+#+begin_comment
+  We developed a simple authentication in which users
+  once registered and logged are provided with a token. This provides a
+  way of authentication against some endpoints in the WS, as POSTs and
+  DELETEs. There are custom permissions to prevent forbidden actions,
+  like a student deleting an exam, or modifying a grade. We used
+  =dj-rest-auth=, which provides endpoints for registration,
+  authentication, password reset, retrieve and update user details, etc.
+
+  We also used =django-all-auth=, which implements a powerful back-end
+  to registration. It also provides with a plug-and-play of social
+  authentication, (i.e.: login with your Google account), and email
+  verification. Although we initially made an Email back-end, we needed
+  to provide in the environment either a usable email or an email
+  provider. We made a special parameter, so they are not needed, as we
+  thought that this will cause some trouble when correcting the project
+  rather than being a feature.
+
+  #+end_comment
+** RMI modifications
+*** HTPP
+*** Client flow changes
+**** Search
+**** List
+**** Choose
+*** Server Flow Changes
+**** Description
+**** Date
+**** Location
+#+begin_comment
+- HTTP :: We have made two adapter classes in order to encapsulate the
+  HTTP requests made to the web service by the client and the server. To
+  make the request we have used =OkHttp3=, as we were restricted to use
+  a library from before Java 8 because of RMI deprecation in Java 9, but
+  we initially intended to use HTTP of Java 11. We were unable to mock
+  and test the API calls because =OkHttp3= Request and Response object
+  does not implement equals, and are final.
+
+- Client flow changes :: Now the client has to be identified in order to
+  enter the exam session, so the first step is to ask for a correct user
+  and password. Once authenticated correctly the user is given 3
+  options:
+
+  - search <keywords>  :: searches exams by its description and outputs
+    the information of the matched exams.
+
+  - list :: lists and outputs all the exams and its information.
+
+
+  - choose <id-exam> :: chose the desired exam in order to connect to
+    its session. Once an exam is chosen, the flow works as before.
+
+- Server flow changes :: As happens with the client, the professor has
+  to be identified in order to create an exam session, so the first step
+  is to ask for a correct user and password. Once authenticated
+  correctly it will be asked to introduce the following parametters in
+  order to create the exam:
+
+  - description :: The description of an exam.
+
+  - date :: Date of an exam. It needs a specific date format, as
+
+    =YYYY-MM-DDThh:mm:ssZ=.
+
+  - location :: The location of an exam (string). We decided that the
+    location will be the bind key of the remote object that references
+    the exact exam session. Once the last parameter is filled, the exam
+    will be created in the web service, as well as the session in which
+    the students can connect to perform the exam. When a professor
+    finishes an exam, all the grades are uploaded to the web service.
+#+end_comment
+** Time dedicated
+It is difficult to say, but we estimate an approximation of 90 hours. We
+are a group of three students, and we worked in this project for 6 days,
+5 hours each day.
