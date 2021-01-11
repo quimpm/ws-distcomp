@@ -15,7 +15,7 @@
 <div class="reveal">
 <div class="slides">
 <section id="sec-title-slide">
-<h1 class="title">Activity 6 - WS</h1><h2 class="author">Joaquim Picó Mora, Ian Palacín Aliana, Sergi Simón Balcells</h2><p class="date">Created: 2021-01-11 Mon 01:09</p>
+<h1 class="title">Activity 6 - WS</h1><h2 class="author">Joaquim Picó Mora, Ian Palacín Aliana, Sergi Simón Balcells</h2><p class="date">Created: 2021-01-11 Mon 01:33</p>
 </section>
 <section>
 <section id="slide-1">
@@ -44,7 +44,7 @@ found at <a href="https://github.com/quimpm/ws-distcomp">WS Project</a>.
 <section id="slide-2">
 <h2 id="2"><span class="section-number-2">2</span> UML</h2>
 
-<div id="org5afc397" class="figure">
+<div id="org5ea00a2" class="figure">
 <p><img src="img/message_passing.png" alt="message_passing.png" height="550" />
 </p>
 </div>
@@ -104,21 +104,21 @@ the student.
 <tr>
 <td class="org-left">get</td>
 <td class="org-left">exam/</td>
-<td class="org-left">List d&rsquo;exams</td>
+<td class="org-left">List all the exams</td>
 <td class="org-right">200</td>
 </tr>
 
 <tr>
 <td class="org-left">get</td>
 <td class="org-left">exam/{exam}/</td>
-<td class="org-left">Detall de Exam (tot)</td>
+<td class="org-left">Detail of an exam</td>
 <td class="org-right">200, 404</td>
 </tr>
 
 <tr>
 <td class="org-left">get</td>
-<td class="org-left">exam/search?description ={text}/</td>
-<td class="org-left">Buscar descripció parcial.</td>
+<td class="org-left">exam/search?description={text}/</td>
+<td class="org-left">Search a description</td>
 <td class="org-right">200</td>
 </tr>
 </tbody>
@@ -142,14 +142,14 @@ the student.
 <tr>
 <td class="org-left">post</td>
 <td class="org-left">exam/</td>
-<td class="org-left">Crea exam. pk no s&rsquo;ha de donar.</td>
+<td class="org-left">Creates an exam.</td>
 <td class="org-left">201, 403, 401</td>
 </tr>
 
 <tr>
 <td class="org-left">put</td>
 <td class="org-left">exam/{exam}/</td>
-<td class="org-left">Modificar camps d&rsquo;Exam (tots)</td>
+<td class="org-left">Modify all fields of an exam</td>
 <td class="org-left">200, 403, 401</td>
 </tr>
 
@@ -180,21 +180,21 @@ the student.
 <tr>
 <td class="org-left">delete</td>
 <td class="org-left">exam/{exam}/</td>
-<td class="org-left">Deletes if professor and no grades</td>
+<td class="org-left">Deletes if user is professor and has no grades</td>
 <td class="org-left">204, 403, 401</td>
 </tr>
 
 <tr>
 <td class="org-left">post</td>
 <td class="org-left">grades/</td>
-<td class="org-left">Penjar nota d&rsquo;un examen.</td>
+<td class="org-left">Uploads an exam.</td>
 <td class="org-left">201, 403, 401</td>
 </tr>
 
 <tr>
 <td class="org-left">get</td>
 <td class="org-left">grades/{user}/user/</td>
-<td class="org-left">List totes les notes d&rsquo;un estudiant.</td>
+<td class="org-left">List all grades of a user</td>
 <td class="org-left">200</td>
 </tr>
 </tbody>
@@ -338,7 +338,7 @@ the student.
 
 <tr>
 <td class="org-left">post</td>
-<td class="org-left">auth/password/reset <i>confirm</i></td>
+<td class="org-left">auth/password/reset/confirm/</td>
 <td class="org-left">Password Confirmation</td>
 <td class="org-left">201, 403, 401</td>
 </tr>
@@ -368,7 +368,7 @@ the student.
 
 <tr>
 <td class="org-left">post</td>
-<td class="org-left">auth/registration /verify-email</td>
+<td class="org-left">auth/registration/verify-email</td>
 <td class="org-left">Verifies email. Needs Email configuration</td>
 <td class="org-left">201, 403, 401</td>
 </tr>
@@ -440,7 +440,7 @@ is properly deleted from the database.
 <section id="slide-4-1">
 <h3 id="4-1"><span class="section-number-3">4.1</span> Authentication</h3>
 
-<div id="orgcc68253" class="figure">
+<div id="org4a8cd4a" class="figure">
 <p><img src="img/registration.png" alt="registration.png" />
 </p>
 <p><span class="figure-number">Figure 2: </span>Register</p>
@@ -449,7 +449,7 @@ is properly deleted from the database.
 </section>
 <section>
 
-<div id="orga494bd8" class="figure">
+<div id="orgd1b15c6" class="figure">
 <p><img src="img/login.png" alt="login.png" />
 </p>
 <p><span class="figure-number">Figure 3: </span>Login</p>
@@ -459,7 +459,7 @@ is properly deleted from the database.
 <section id="slide-exam">
 <h3 id="exam"><span class="section-number-3">4.2</span> Exam</h3>
 
-<div id="orgc0c09a2" class="figure">
+<div id="org9e22dfd" class="figure">
 <p><img src="img/list_exams.png" alt="list_exams.png" height="500" />
 </p>
 <p><span class="figure-number">Figure 4: </span>List exams</p>
@@ -468,7 +468,7 @@ is properly deleted from the database.
 </section>
 <section>
 
-<div id="org0517360" class="figure">
+<div id="orgcf943a7" class="figure">
 <p><img src="img/create_exam.png" alt="create_exam.png" />
 </p>
 <p><span class="figure-number">Figure 5: </span>Create exam</p>
@@ -477,7 +477,7 @@ is properly deleted from the database.
 </section>
 <section>
 
-<div id="org1d86a7c" class="figure">
+<div id="org61755aa" class="figure">
 <p><img src="img/read_exam.png" alt="read_exam.png" />
 </p>
 <p><span class="figure-number">Figure 6: </span>Read exam</p>
@@ -486,7 +486,7 @@ is properly deleted from the database.
 </section>
 <section>
 
-<div id="orgb8e9e13" class="figure">
+<div id="org45ecacd" class="figure">
 <p><img src="img/update_exam.png" alt="update_exam.png" />
 </p>
 <p><span class="figure-number">Figure 7: </span>Update exam</p>
@@ -495,7 +495,7 @@ is properly deleted from the database.
 </section>
 <section>
 
-<div id="org030f158" class="figure">
+<div id="org67b9731" class="figure">
 <p><img src="img/partial_update_exam.png" alt="partial_update_exam.png" />
 </p>
 <p><span class="figure-number">Figure 8: </span>Patch exam</p>
@@ -504,7 +504,7 @@ is properly deleted from the database.
 </section>
 <section>
 
-<div id="org6e0e61c" class="figure">
+<div id="org6633494" class="figure">
 <p><img src="img/delete_exam.png" alt="delete_exam.png" />
 </p>
 <p><span class="figure-number">Figure 9: </span>Delete exam</p>
@@ -513,7 +513,7 @@ is properly deleted from the database.
 </section>
 <section>
 
-<div id="orgc4370d5" class="figure">
+<div id="org50d38db" class="figure">
 <p><img src="img/search1.png" alt="search1.png" height="550" />
 </p>
 <p><span class="figure-number">Figure 10: </span>Search exam</p>
@@ -523,7 +523,7 @@ is properly deleted from the database.
 <section id="slide-4-3">
 <h3 id="4-3"><span class="section-number-3">4.3</span> Grades</h3>
 
-<div id="orgee034c6" class="figure">
+<div id="org129cc90" class="figure">
 <p><img src="img/list_grades.png" alt="list_grades.png" />
 </p>
 <p><span class="figure-number">Figure 11: </span>List grades</p>
@@ -532,7 +532,7 @@ is properly deleted from the database.
 </section>
 <section>
 
-<div id="orge59cc9a" class="figure">
+<div id="org0c43584" class="figure">
 <p><img src="img/create_grades.png" alt="create_grades.png" />
 </p>
 <p><span class="figure-number">Figure 12: </span>Create grade</p>
@@ -541,7 +541,7 @@ is properly deleted from the database.
 </section>
 <section>
 
-<div id="org6ebb07a" class="figure">
+<div id="orgc4d5ad3" class="figure">
 <p><img src="img/get_grades_by_id.png" alt="get_grades_by_id.png" />
 </p>
 <p><span class="figure-number">Figure 13: </span>Read grade</p>
@@ -550,7 +550,7 @@ is properly deleted from the database.
 </section>
 <section>
 
-<div id="org540dd54" class="figure">
+<div id="orgeb6a621" class="figure">
 <p><img src="img/update_grade.png" alt="update_grade.png" />
 </p>
 <p><span class="figure-number">Figure 14: </span>Update grade</p>
@@ -559,7 +559,7 @@ is properly deleted from the database.
 </section>
 <section>
 
-<div id="org823419c" class="figure">
+<div id="orgcd2df7d" class="figure">
 <p><img src="img/patch_grade.png" alt="patch_grade.png" />
 </p>
 <p><span class="figure-number">Figure 15: </span>Patch grade</p>
@@ -568,7 +568,7 @@ is properly deleted from the database.
 </section>
 <section>
 
-<div id="org5b14d8c" class="figure">
+<div id="orge2212f0" class="figure">
 <p><img src="img/delete_grade.png" alt="delete_grade.png" />
 </p>
 <p><span class="figure-number">Figure 16: </span>Delete grade</p>
@@ -577,7 +577,7 @@ is properly deleted from the database.
 </section>
 <section>
 
-<div id="org5c6cfcc" class="figure">
+<div id="orga024816" class="figure">
 <p><img src="img/get_user_grade.png" alt="get_user_grade.png" height="550" />
 </p>
 <p><span class="figure-number">Figure 17: </span>Search user grades</p>
@@ -586,7 +586,7 @@ is properly deleted from the database.
 </section>
 <section>
 
-<div id="org3fec4f2" class="figure">
+<div id="org8e855b2" class="figure">
 <p><img src="img/get_exam_grade.png" alt="get_exam_grade.png" height="500" />
 </p>
 <p><span class="figure-number">Figure 18: </span>Search exam grades</p>

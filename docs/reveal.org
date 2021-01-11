@@ -34,21 +34,21 @@ holds two foreign keys to the exam that belongs the grade, as well as
 the student.
 
 * Endpoint Table
-| Method | URL                              | What                                 | Status code   |
-|--------+----------------------------------+--------------------------------------+---------------|
-| get    | exam/                            | List d'exams                         | 200           |
-| get    | exam/{exam}/                     | Detall de Exam (tot)                 | 200, 404      |
-| get    | exam/search?description ={text}/ | Buscar descripció parcial.           | 200           |
+| Method | URL                              | What                 | Status code |
+|--------+----------------------------------+----------------------+-------------|
+| get    | exam/                            | List all the exams   |         200 |
+| get    | exam/{exam}/                     | Detail of an exam    |    200, 404 |
+| get    | exam/search?description={text}/  | Search a description |         200 |
 
 #+REVEAL: split
-| post   | exam/                            | Crea exam. pk no s'ha de donar.      | 201, 403, 401 |
-| put    | exam/{exam}/                     | Modificar camps d'Exam (tots)        | 200, 403, 401 |
-| patch  | exam/{exam}/                     | Partial update.                      | 200, 403, 401 |
+| post  | exam/        | Creates an exam.                                           | 201, 403, 401 |
+| put   | exam/{exam}/ | Modify all fields of an exam | 200, 403, 401 |
+| patch | exam/{exam}/ | Partial update.                                            | 200, 403, 401 |
 
 #+REVEAL: split
-| delete | exam/{exam}/                     | Deletes if professor and no grades   | 204, 403, 401 |
-| post   | grades/                          | Penjar nota d'un examen.             | 201, 403, 401 |
-| get    | grades/{user}/user/              | List totes les notes d'un estudiant. | 200           |
+| delete | exam/{exam}/        | Deletes if user is professor and has no grades | 204, 403, 401 |
+| post   | grades/             | Uploads an exam.                               | 201, 403, 401 |
+| get    | grades/{user}/user/ | List all grades of a user                      | 200           |
 
 #+REVEAL: split
 | get    | grades/                          | List all grades.                     | 200           |
@@ -60,17 +60,17 @@ the student.
 | delete | grades/{grade-id}                | Deletes a grade.                     | 204, 403, 401 |
 
 #+REVEAL: split
-| post   | auth/login/                     | Logins                                                          | 201, 403, 401 |
-| get    | auth/logout/                    | Logouts                                                         | 200           |
-| post   | auth/logout/                    | Logout                                                          | 201, 403, 401 |
+| post | auth/login/  | Logins  | 201, 403, 401 |
+| get  | auth/logout/ | Logouts | 200           |
+| post | auth/logout/ | Logout  | 201, 403, 401 |
 
 #+REVEAL: split
 | post   | auth/password/change/           | Password change.                                                | 201, 403, 401 |
 | post   | auth/password/reset/            | Password reset by email confirmation. Needs Email configuration | 201, 403, 401 |
-| post   | auth/password/reset /confirm/   | Password Confirmation                                           | 201, 403, 401 |
+| post   | auth/password/reset/confirm/    | Password Confirmation                                           | 201, 403, 401 |
 #+REVEAL: split
 | post   | auth/registration/              | Register a new user.                                            | 201, 403, 401 |
-| post   | auth/registration /verify-email | Verifies email. Needs Email configuration                       | 201, 403, 401 |
+| post   | auth/registration/verify-email  | Verifies email. Needs Email configuration                       | 201, 403, 401 |
 | get    | auth/user/                      | Reads User. Needs authentication                                | 200           |
 #+REVEAL: split
 | put    | auth/user/                      | Updates User                                                    | 200, 403, 401 |
