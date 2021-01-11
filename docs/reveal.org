@@ -48,14 +48,15 @@ the student.
 #+REVEAL: split
 | delete | exam/{exam}/        | Deletes if user is professor and has no grades | 204, 403, 401 |
 | post   | grades/             | Uploads an exam.                               | 201, 403, 401 |
-| get    | grades/{user}/user/ | List all grades of a user                      | 200           |
-
-#+REVEAL: split
 | get    | grades/                          | List all grades.                     | 200           |
-| get    | grades/{grade-id}                | Detail a grade.                      | 200, 404      |
-| put    | grades/{grade-id}                | Updates a grade.                     | 200, 403, 401 |
 
 #+REVEAL: split
+| get    | grades/{grade-id}                | Detail a grade.                      | 200, 404      |
+| get    | grades/{user}/user/ | List all grades of a user                      |           200 |
+| get    | grades/{user}/exam/ | List all grades of an exam                     |           200 |
+
+#+REVEAL: split
+| put    | grades/{grade-id}                | Updates a grade.                     | 200, 403, 401 |
 | patch  | grades/{grade-id}                | Partially updates a grade.           | 200, 403, 401 |
 | delete | grades/{grade-id}                | Deletes a grade.                     | 204, 403, 401 |
 
@@ -249,7 +250,7 @@ the presentation, so we made a custom endpoint to read a specific User.
   does not implement equals, and are final.
 
 - Client flow changes :: Now the client has to be identified in order to
-  enter the exam session, so the first step is to ask for a correct user
+  enter the exam session, so the first step is to ask for a correct username
   and password. Once authenticated correctly the user is given 3
   options:
 
@@ -259,12 +260,12 @@ the presentation, so we made a custom endpoint to read a specific User.
   - list :: lists and outputs all the exams and its information.
 
 
-  - choose <id-exam> :: chose the desired exam in order to connect to
+  - choose <id-exam> :: choose the desired exam in order to connect to
     its session. Once an exam is chosen, the flow works as before.
 
 - Server flow changes :: As happens with the client, the professor has
   to be identified in order to create an exam session, so the first step
-  is to ask for a correct user and password. Once authenticated
+  is to ask for a correct username and password. Once authenticated
   correctly it will be asked to introduce the following parametters in
   order to create the exam:
 
