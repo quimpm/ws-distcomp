@@ -8,7 +8,6 @@
 class User <<persistent>> {
     + email: Email
     + password: Password
-    + role: Student | Professor | SuperUser
 }
 
 note top of Exam : Date is on epoch format.
@@ -34,7 +33,6 @@ Exam "0.." -- "1..*" User
 
 #+attr_org: :width 300
 #+RESULTS:
-[[file:img/message_passing.png]]
 
 * Coses a preguntar
 + Sobre time i location (Exam)

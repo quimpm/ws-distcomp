@@ -96,10 +96,10 @@ is properly deleted from the database.
 #+caption: Login
 [[file:img/login.png]]
 
+#+REVEAL: split
+#+caption: User retrieve.
+[[file:img/get-user.png]]
 ** Exam
-   :PROPERTIES:
-   :CUSTOM_ID: exam
-   :END:
 
 #+attr_html: :height 500
 #+caption: List exams
