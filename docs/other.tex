@@ -112,16 +112,16 @@ foreign keys to the exam that belongs the grade, as well as the student.
 \hline
 Method & URL & What & Status code\\
 \hline
-get & exam/ & List d'exams & 200\\
-get & exam/\{exam\}/ & Detall de Exam (tot) & 200, 404\\
-get & exam/search?description =\{text\}/ & Buscar descripció parcial. & 200\\
-post & exam/ & Crea exam. pk no s'ha de donar. & 201, 403, 401\\
-put & exam/\{exam\}/ & Modificar camps d'Exam (tots) & 200, 403, 401\\
+get & exam/ & List of exams & 200\\
+get & exam/\{exam\}/ & Detail of an exam (tot) & 200, 404\\
+get & exam/search?description =\{text\}/ & Search for a description. & 200\\
+post & exam/ & Create an exam. & 201, 403, 401\\
+put & exam/\{exam\}/ & Modify  all fields of an exam & 200, 403, 401\\
 patch & exam/\{exam\}/ & Partial update. & 200, 403, 401\\
-delete & exam/\{exam\}/ & Deletes if professor and no grades & 204, 403, 401\\
+delete & exam/\{exam\}/ & Deletes if user = professor and exam has no grades & 204, 403, 401\\
 \hline
-post & grades/ & Penjar nota d'un examen. & 201, 403, 401\\
-get & grades/\{user\}/user/ & List totes les notes d'un estudiant. & 200\\
+post & grades/ & Uploads a grade. & 201, 403, 401\\
+get & grades/\{user\}/user/ & List of all user grades. & 200\\
 get & grades/ & List all grades. & 200\\
 get & grades/\{grade-id\} & Detail a grade. & 200, 404\\
 put & grades/\{grade-id\} & Updates a grade. & 200, 403, 401\\
